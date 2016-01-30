@@ -98,7 +98,7 @@ public class Path
         SegmentPos segmentPos = GetSegmentPos(pos);
         Vector2 p1 = points[segmentPos.index];
         Vector2 p2 = points[(segmentPos.index + 1) % points.Length];
-        float degrees = Vector2.Angle(new Vector2(0, 1), p2 - p1);
-        return degrees * Mathf.PI / 180.0f;
+        Vector2 v = p2 - p1;
+        return Mathf.Atan2(v.y, v.x) * 180.0f / Mathf.PI - 90.0f;
     }
 }
