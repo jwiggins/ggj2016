@@ -1,42 +1,84 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Path : MonoBehaviour {
+public class Path {
+    private Vector2[] points;
+    private float[] segmentLengths;
+    private float length;
 
-	private GameObject host;
-	private PolygonCollider2D collider;
-	private LineRenderer lr;
+    public Path(Vector2[] points)
+    {
+        this.points = points;
+        segmentLengths = new float[points.Length];
+        length = 0;
+        for (int i = 0; i < points.Length; i++)
+        {
+            Vector2 p1 = points[i];
+            Vector2 p2 = points[(i+1) % points.Length];
+            float segmentLength = Vector2.Distance(p1, p2);
+            length += segmentLength;
+            segmentLengths[i] = segmentLength;
+        }
+    }
 
-	// Use this for initialization
-	void Start () {
-		host = gameObject;
-		collider = host.GetComponent<PolygonCollider2D> ();
-		lr = host.GetComponent<LineRenderer> ();
+    public static Path createRect(float x1, float y1, float x2, float y2)
+    {
+        Vector2[] points = new Vector2[4];
+        points[0] = new Vector2(x1, y1);
+        points[1] = new Vector2(x2, y1);
+        points[2] = new Vector2(x2, y2);
+        points[3] = new Vector2(x1, y2);
+        return new Path(points);
+    }
 
-		Vector2[] debugPoints = new Vector2[4] { new Vector2 (0, 0),
-			new Vector2 (1, 0),
-			new Vector2 (1, 1),
-			new Vector2 (0, 1)
-		};
-		setCollider(debugPoints);
-		setLineRender(debugPoints);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public static Path createEllipse(float x, float y, float rx, float ry, int segments)
+    {
+        Vector2[] points = new Vector2[segments];
+        float twoPi = Mathf.PI * 2.0f;
+        float angleStep = twoPi / (float)segments;
+        float angle = 0;
+        for (int i = 0; i < segments; i++)
+        {
+            points[i] = new Vector2(x + Mathf.Sin(angle) * rx, y + Mathf.Cos(angle) * ry);
+            angle += angleStep;
+        }
 
-	void setCollider(Vector2[] points){
-		collider.SetPath (0,points);
-	}
+        return new Path(points);
+    }
 
-	void setLineRender(Vector2[] points){
-		lr.SetVertexCount(points.Length);
-		Vector3[] v3 = new Vector3[points.Length];
-		for (int i = 0; i < points.Length; i++) {
-			v3 [i] = new Vector3 (points[i].x,points[i].y,0);
-		}
-		lr.SetPositions (v3);
-	}
+    public Vector2[] Points
+    {
+        get
+        {
+            return points;
+        }
+    }
+
+    public float Length
+    {
+        get
+        {
+            return length;
+        }
+    }
+
+
+    public Vector2 GetPointAt(float pos)
+    {
+        int segmentIndex = 0;
+        float segmentRatio = 0;
+        for (int i = 0; i < points.Length; i++)
+        {
+            if (pos <= segmentLengths[i])
+            {
+                segmentIndex = i;
+                segmentRatio = pos / segmentLengths[i];
+                break;
+            }
+            pos -= segmentLengths[i];
+        }
+        Vector2 p1 = points[segmentIndex];
+        Vector2 p2 = points[(segmentIndex + 1) % points.Length];
+        return (p2 - p1) * segmentRatio + p1;
+    }
 }

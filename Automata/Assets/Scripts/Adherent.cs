@@ -4,14 +4,14 @@ using System.Collections;
 public class Adherent : MonoBehaviour {
 
 	public Follower follower;
-	public Path path;
+	public PathObject pathObject;
 
 	private float x = 0;
 
 	// Use this for initialization
 	void Start () {
 		follower = transform.GetChild (0).GetComponent<Follower>();
-		path = transform.GetChild (1).GetComponent<Path>();
+		pathObject = transform.GetChild (1).GetComponent<PathObject>();
 	}
 	
 	// Update is called once per frame
