@@ -42,4 +42,12 @@ public class PathObject : MonoBehaviour {
 		v3[points.Length] = new Vector3 (points[0].x,points[0].y,0);
 		lr.SetPositions (v3);
 	}
+
+    public Path Path
+    {
+        get
+        {
+            return path;
+        }
+    }
 }
