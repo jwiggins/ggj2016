@@ -22,4 +22,10 @@ public class Follower : MonoBehaviour {
 		body.MovePosition(pos);
 		body.MoveRotation(angle);
 	}
+
+	public void attach(Resource r){
+		r.host.transform.SetParent (host.transform);
+		r.host.transform.localPosition = new Vector3 (1,0,0);
+		r.host.transform.localEulerAngles = new Vector3 (1, 0, 0);
+	}
 }
