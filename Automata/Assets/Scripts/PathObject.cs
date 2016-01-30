@@ -5,14 +5,12 @@ public class PathObject : MonoBehaviour {
 
 	private GameObject host;
 	private PolygonCollider2D collider;
-	private LineRenderer lr;
 	private Path path;
 
 	// Use this for initialization
 	void Awake () {
 		host = gameObject;
 		collider = host.GetComponent<PolygonCollider2D> ();
-		lr = host.GetComponent<LineRenderer> ();
 	}
 	
 	// Update is called once per frame
