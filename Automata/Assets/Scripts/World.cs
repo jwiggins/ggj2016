@@ -21,7 +21,7 @@ public class World : MonoBehaviour {
 		m_Camera.orthographicSize = Screen.width * 0.25f;
 		m_Camera.transform.position = new Vector3(Screen.width * 0.5f,Screen.height * 0.5f,-10f);
 
-		m_Buttons = (GameObject)Instantiate(m_ButtonsPrefab, new Vector3(0f, Screen.height * -0.5f, 0f), Quaternion.identity);
+		m_Buttons = (GameObject)Instantiate(m_ButtonsPrefab);
 	}
 	
 	// Update is called once per frame
