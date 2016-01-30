@@ -9,19 +9,10 @@ public class PathObject : MonoBehaviour {
 	private Path path;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		host = gameObject;
 		collider = host.GetComponent<PolygonCollider2D> ();
 		lr = host.GetComponent<LineRenderer> ();
-
-		Vector2[] debugPoints = new Vector2[4] { new Vector2 (0, 0),
-			new Vector2 (1, 0),
-			new Vector2 (1, 1),
-			new Vector2 (0, 1)
-		};
-		path = Path.createRect (0.0f,0.0f,2.0f,2.0f);
-		setCollider(path.Points);
-		setLineRender(path.Points);
 	}
 	
 	// Update is called once per frame
@@ -31,6 +22,14 @@ public class PathObject : MonoBehaviour {
 
 	void setCollider(Vector2[] points){
 		collider.SetPath (0,points);
+	}
+
+	void setCollider(){
+		collider.SetPath (0, path.Points);
+	}
+
+	void setLineRender(){
+		setLineRender (path.Points);
 	}
 
 	void setLineRender(Vector2[] points){
@@ -50,4 +49,9 @@ public class PathObject : MonoBehaviour {
             return path;
         }
     }
+	public void setShape(Path p){
+		path = p;
+		setCollider ();
+		setLineRender ();
+	}
 }

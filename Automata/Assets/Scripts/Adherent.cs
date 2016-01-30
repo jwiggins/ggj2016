@@ -3,13 +3,15 @@ using System.Collections;
 
 public class Adherent : MonoBehaviour {
 
-	public Follower follower;
-	public PathObject pathObject;
+	private GameObject host;
+	private Follower follower;
+	private PathObject pathObject;
 
 	private float x = 0;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
+		host = gameObject;
 		follower = transform.GetChild (0).GetComponent<Follower>();
 		pathObject = transform.GetChild (1).GetComponent<PathObject>();
 	}
@@ -21,6 +23,10 @@ public class Adherent : MonoBehaviour {
         Vector2 point = pathObject.Path.GetPointAt(x);
         float angle = pathObject.Path.GetAngleAt(x);
         follower.place(point, angle);
+	}
+
+	public void setpath(Path p){
+		pathObject.setShape (p);
 	}
 		
 }
