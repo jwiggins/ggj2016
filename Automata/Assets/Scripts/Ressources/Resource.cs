@@ -26,8 +26,11 @@ public class Resource : MonoBehaviour{
 		case "Follower":
 			(other.gameObject.GetComponent<Follower> ()).attach (this);
 			break;
-		//case "Goal":
-			
+		case "Sink":
+			(other.gameObject.GetComponent<Sink> ()).attach (this);
+			host.GetComponent<Collider2D> ().enabled = false;
+			//TODO:WIN!
+			break;
 		}
 	}
 }
