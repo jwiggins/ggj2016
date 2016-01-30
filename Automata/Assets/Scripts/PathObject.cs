@@ -34,14 +34,36 @@ public class PathObject : MonoBehaviour {
 	}
 
 	void setLineRender(Vector2[] points){
-		lr.SetVertexCount(points.Length+1);
-		Vector3[] v3 = new Vector3[points.Length+1];
-		for (int i = 0; i < points.Length; i++) {
-			v3 [i] = new Vector3 (points[i].x,points[i].y,0);
-		}
-		v3[points.Length] = new Vector3 (points[0].x,points[0].y,0);
-		lr.SetPositions (v3);
-	}
+        const float thickness = 0.03f;
+
+        Vector3[] vertices = new Vector3[points.Length * 4];
+        int[] triangles = new int[points.Length * 6];
+        for (int i = 0; i < points.Length; i++)
+        {
+            Vector2 p1 = points[i];
+            Vector2 p2 = points[(i + 1) % points.Length];
+            Vector2 dir = p2 - p1;
+            dir.Normalize();
+            Vector2 norm = new Vector2(dir.y, -dir.x);
+
+            vertices[i * 4] = p1 - dir * thickness - norm * thickness;
+            vertices[i * 4 + 1] = p1 - dir * thickness + norm * thickness;
+            vertices[i * 4 + 2] = p2 + dir * thickness - norm * thickness;
+            vertices[i * 4 + 3] = p2 + dir * thickness + norm * thickness;
+
+            triangles[i * 6] = i * 4;
+            triangles[i * 6 + 1] = i * 4 + 2;
+            triangles[i * 6 + 2] = i * 4 + 1;
+            triangles[i * 6 + 3] = i * 4 + 1;
+            triangles[i * 6 + 4] = i * 4 + 2;
+            triangles[i * 6 + 5] = i * 4 + 3;
+        }
+
+        Mesh mesh = new Mesh();
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
+        GetComponent<MeshFilter>().mesh = mesh;
+    }
 
     public Path Path
     {
