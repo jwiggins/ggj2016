@@ -27,7 +27,8 @@ public class UIControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        mousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+        mousePos = new Vector2(mouseWorldPos[0], mouseWorldPos[1]);
         if (Input.GetKeyDown (KeyCode.Mouse0) && uiState != (int)uiStates.None && !editing) {
 			editingPoints[0] = mousePos;
             editing = true;
