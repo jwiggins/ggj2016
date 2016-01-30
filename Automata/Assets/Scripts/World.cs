@@ -22,7 +22,11 @@ public class World : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+	}
+
+	public void obstacleCollision(Obstacle obst, GameObject collider) {
+		Debug.Log(obst.GetType().ToString() + " run into by a " + collider.tag);
 	}
 
 	public Adherent Add(Vector2 pos){
