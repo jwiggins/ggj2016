@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21292106}
   - 58: {fileID: 5899956}
   - 114: {fileID: 11426540}
+  - 50: {fileID: 5090496}
   m_Layer: 0
   m_Name: Follower
   m_TagString: Follower
@@ -90,6 +91,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 458748}
   m_RootOrder: 1
+--- !u!50 &5090496
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120076}
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &5899956
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -156,8 +174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 059d53c409e08405880cd895b8b570e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  follower: {fileID: 0}
-  path: {fileID: 0}
 --- !u!120 &12040078
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -231,7 +247,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 143762}
