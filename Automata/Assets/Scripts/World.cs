@@ -25,6 +25,10 @@ public class World : MonoBehaviour {
 
 	}
 
+	public void obstacleCollision(Obstacle obst, GameObject collider) {
+		Debug.Log(obst.GetType().ToString() + " run into by a " + collider.tag);
+	}
+
 	public Adherent Add(Vector2 pos){
 		adherentObjects.Add(((GameObject)Instantiate (m_AdherentPrefab, new Vector3 (pos.x, pos.y, 0), Quaternion.identity)).GetComponent<Adherent> ());
 		return adherentObjects [adherentObjects.Count - 1];
