@@ -13,10 +13,13 @@ public class UITriangle : UIObject {
     }
 
 	private Path createTriangle(float x,float y,float x2,float y2){
+		Vector3 v3 = new Vector3 (x2-x,y2-y,0.0f);
+		v3 = Quaternion.Euler (0, 0, 120) * v3;
 		Vector2[] points = new Vector2[3];
-		points[0] = new Vector2(x, y);
-		points[1] = new Vector2(x2, x);
-		points[2] = new Vector2(x2, y2);
+		points[0] = new Vector2(x+v3.x, y+v3.y);
+		points[1] = new Vector2(x2, y2);
+		v3 = Quaternion.Euler (0, 0, 120) * v3;
+		points[2] = new Vector2(x+v3.x, y+v3.y);
 		return new Path(points);
 	}
 }
