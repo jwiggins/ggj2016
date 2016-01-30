@@ -184,4 +184,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ResourcePrefab: {fileID: 0}
-  m_AdherentPrefab: {fileID: 0}
+  m_AdherentPrefab: {fileID: 143762, guid: 10356823949d145b38a77726863f9bad, type: 2}
