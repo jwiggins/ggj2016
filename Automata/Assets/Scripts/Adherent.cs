@@ -18,11 +18,11 @@ public class Adherent : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        x += 0.1f;
+        x += 2f;
         x %= pathObject.Path.Length;
         Vector2 point = pathObject.Path.GetPointAt(x);
         float angle = pathObject.Path.GetAngleAt(x);
-        follower.place(point, angle);
+		follower.place(point+new Vector2(host.transform.position.x,host.transform.position.y), angle);
 	}
 
 	public void setpath(Path p){
