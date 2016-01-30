@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Path {
+public class Path
+{
     private Vector2[] points;
     private float[] segmentLengths;
     private float length;
@@ -14,7 +15,7 @@ public class Path {
         for (int i = 0; i < points.Length; i++)
         {
             Vector2 p1 = points[i];
-            Vector2 p2 = points[(i+1) % points.Length];
+            Vector2 p2 = points[(i + 1) % points.Length];
             float segmentLength = Vector2.Distance(p1, p2);
             length += segmentLength;
             segmentLengths[i] = segmentLength;
@@ -62,23 +63,42 @@ public class Path {
         }
     }
 
-
-    public Vector2 GetPointAt(float pos)
+    private struct SegmentPos
     {
-        int segmentIndex = 0;
-        float segmentRatio = 0;
+        public int index;
+        public float ratio;
+    }
+
+    private SegmentPos GetSegmentPos(float pos)
+    {
+        SegmentPos result = new SegmentPos();
         for (int i = 0; i < points.Length; i++)
         {
             if (pos <= segmentLengths[i])
             {
-                segmentIndex = i;
-                segmentRatio = pos / segmentLengths[i];
+                result.index = i;
+                result.ratio = pos / segmentLengths[i];
                 break;
             }
             pos -= segmentLengths[i];
         }
-        Vector2 p1 = points[segmentIndex];
-        Vector2 p2 = points[(segmentIndex + 1) % points.Length];
-        return (p2 - p1) * segmentRatio + p1;
+        return result;
+    }
+
+    public Vector2 GetPointAt(float pos)
+    {
+        SegmentPos segmentPos = GetSegmentPos(pos);
+        Vector2 p1 = points[segmentPos.index];
+        Vector2 p2 = points[(segmentPos.index + 1) % points.Length];
+        return (p2 - p1) * segmentPos.ratio + p1;
+    }
+
+    public float GetAngleAt(float pos)
+    {
+        SegmentPos segmentPos = GetSegmentPos(pos);
+        Vector2 p1 = points[segmentPos.index];
+        Vector2 p2 = points[(segmentPos.index + 1) % points.Length];
+        float degrees = Vector2.Angle(new Vector2(0, 1), p2 - p1);
+        return degrees * Mathf.PI / 180.0f;
     }
 }
