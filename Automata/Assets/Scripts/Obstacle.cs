@@ -3,26 +3,17 @@ using System.Collections;
 
 public class Obstacle : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-	void OnTriggerEnter (Collider other) {
+	void OnTriggerEnter2D (Collider2D other) {
 		GameObject obj = other.gameObject;
 
-		Debug.Log("Collided with: " + obj.GetType().ToString());
+		Debug.Log("Triggered by: " + obj.GetType().ToString());
 	}
 
-	void OnTriggerExit (Collider other) {
+	void OnTriggerExit2D (Collider2D other) {
 		GameObject obj = other.gameObject;
 
-		Debug.Log("Stopped colliding with: " + obj.GetType().ToString());
+		Debug.Log("Stopped triggering with: " + obj.GetType().ToString());
 	}
+
 
 }

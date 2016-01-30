@@ -4,10 +4,12 @@ using System.Collections;
 public class Follower : MonoBehaviour {
 
 	private GameObject host;
+	private Rigidbody2D body;
 
 	// Use this for initialization
 	void Start () {
 		host = gameObject;
+		body = GetComponent<Rigidbody2D>();
 	}
 	
 	// Update is called once per frame
@@ -17,7 +19,7 @@ public class Follower : MonoBehaviour {
 
 	//Place the Follower
 	public void place(Vector2 pos,float angle){
-		host.transform.localPosition = new Vector3 (pos.x,pos.y,0);
-		host.transform.eulerAngles = new Vector3(0,0,angle);
+		body.MovePosition(pos);
+		body.MoveRotation(angle);
 	}
 }
