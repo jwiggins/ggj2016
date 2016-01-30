@@ -12,7 +12,7 @@ GameObject:
   - 114: {fileID: 11485092}
   - 61: {fileID: 6134242}
   m_Layer: 0
-  m_Name: RectPrefab
+  m_Name: RectObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
