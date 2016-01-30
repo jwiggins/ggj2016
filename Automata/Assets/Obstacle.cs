@@ -12,4 +12,17 @@ public class Obstacle : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	void OnTriggerEnter (Collider other) {
+		GameObject obj = other.gameObject;
+
+		Debug.Log("Collided with: " + obj.GetType().ToString());
+	}
+
+	void OnTriggerExit (Collider other) {
+		GameObject obj = other.gameObject;
+
+		Debug.Log("Stopped colliding with: " + obj.GetType().ToString());
+	}
+
 }
