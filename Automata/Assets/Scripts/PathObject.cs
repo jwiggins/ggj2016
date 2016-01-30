@@ -5,7 +5,7 @@ public class PathObject : MonoBehaviour {
 
 	private GameObject host;
 	private PolygonCollider2D collider;
-	private Path path;
+	private Path path, path2;
 
 	// Use this for initialization
 	void Awake () {
@@ -31,7 +31,7 @@ public class PathObject : MonoBehaviour {
 	}
 
 	void setLineRender(Vector2[] points){
-        const float thickness = 5f;
+        const float thickness = 0.5f;
 
         Vector3[] vertices = new Vector3[points.Length * 4];
         int[] triangles = new int[points.Length * 6];
@@ -71,7 +71,8 @@ public class PathObject : MonoBehaviour {
     }
 	public void setShape(Path p){
 		path = p;
-		setCollider ();
+        path2 = p; // don't ask, it fixes a problem where apparently path gets garbage collected in the background
+        setCollider ();
 		setLineRender ();
 	}
 }

@@ -23,6 +23,8 @@ public class UIControl : MonoBehaviour {
 
         pathPreviewRenderer = pathPreview.GetComponent<Renderer>();
         pathPreviewRenderer.enabled = false;
+
+        this.transform.position = new Vector3(this.transform.position[0], this.transform.position[1], -1);
     }
 	
 	// Update is called once per frame
