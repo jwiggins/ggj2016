@@ -16,6 +16,8 @@ public class World : MonoBehaviour {
 	void Start () {
 		m_Camera = GetComponent<Camera>();
 		adherentObjects = new List<Adherent> ();
+		m_Camera.orthographicSize = Screen.width * 0.25f;
+		m_Camera.transform.position = new Vector3(Screen.width * 0.5f,Screen.height * 0.5f,-10f);
 	}
 	
 	// Update is called once per frame

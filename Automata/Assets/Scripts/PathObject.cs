@@ -31,7 +31,7 @@ public class PathObject : MonoBehaviour {
 	}
 
 	void setLineRender(Vector2[] points){
-        const float thickness = 0.03f;
+        const float thickness = 5f;
 
         Vector3[] vertices = new Vector3[points.Length * 4];
         int[] triangles = new int[points.Length * 6];
