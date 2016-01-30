@@ -27,6 +27,15 @@ public class World : MonoBehaviour {
 
 	public void obstacleCollision(Obstacle obst, GameObject collider) {
 		Debug.Log(obst.GetType().ToString() + " run into by a " + collider.tag);
+
+		GameObject gamObj = collider.transform.parent.gameObject;
+		Adherent addy = (Adherent)(gamObj.GetComponent<Adherent>());
+
+		if (adherentObjects.Contains(addy)) {
+			adherentObjects.Remove(addy);
+			Destroy(gamObj);
+		}
+
 	}
 
 	public Adherent Add(Vector2 pos){
