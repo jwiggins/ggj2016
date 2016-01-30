@@ -32,7 +32,7 @@ public class UIControl : MonoBehaviour {
         if (editing) {
             editingPoints[1] = mousePos;
             pathPreview.transform.position = new Vector3(editingPoints[0].x, editingPoints[0].y, 0);
-            pathPreview.setShape(Path.createRect(0, 0, editingPoints[1].x - editingPoints[0].x, editingPoints[1].y - editingPoints[0].y));
+            pathPreview.setShape(wipObject.toPath(editingPoints));
         }
     }
 

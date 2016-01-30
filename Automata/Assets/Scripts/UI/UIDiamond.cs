@@ -2,11 +2,16 @@
 using System.Collections;
 
 public class UIDiamond : UIObject {
+    public override void toAdherent(Adherent target, Vector2[] points)
+    {
+        target.setpath(toPath(points));
+    }
 
-	public override void toAdherent(Adherent target,Vector2[] points){
-		target.setpath(createDiamond(0f,0f,points[1].x-points[0].x,points[1].y-points[0].y));
-	}
-
+    public override Path toPath(Vector2[] points)
+    {
+        return createDiamond(0f, 0f, points[1].x - points[0].x, points[1].y - points[0].y);
+    }
+    
 	private Path createDiamond(float x,float y,float x2,float y2){
 		Vector3 v2 = new Vector3 (x2-x,y2-y,0f);
 		Vector3 v3 = (Vector3.Cross(v2,new Vector3(0,0,1)));
