@@ -9,20 +9,33 @@ class CameraAnimator : Object {
 	float focusTime;
 	int focusIndex;
 
+	bool shifting;
+	Vector3 startPos, endPos;
+
 	public CameraAnimator(Camera cam) {
 		m_Camera = cam;
 		m_CameraFocii = new List<GameObject>(GameObject.FindGameObjectsWithTag("CameraFocus"));
 		m_CameraFocii.Sort((x,y) => x.name.CompareTo(y.name));
 		focusTime = 5.0f;
 		focusIndex = 0;
+		shifting = false;
 	}
 
 	public void Update (float delta) {
 		focusTime -= delta;
 		if (focusTime <= 0.0f && focusIndex < m_CameraFocii.Count) {
+			startPos = m_Camera.transform.position;
+			endPos = m_CameraFocii[focusIndex].transform.position;
+			shifting = true;
 			m_Camera.transform.position = m_CameraFocii[focusIndex].transform.position;
 			focusTime = 5.0f;
 			focusIndex += 1;
+		}
+		else if (focusIndex == m_CameraFocii.Count) {
+			shifting = false;
+		}
+		if (shifting) {
+			m_Camera.transform.position = Vector3.Lerp(startPos, endPos, (5.0f - focusTime) / 5.0f);
 		}
 	}
 }
