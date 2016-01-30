@@ -9,21 +9,23 @@ public class UIControl : MonoBehaviour {
     private bool editing = false;
 	private UIObject wipObject;
 
-    public GameObject worldContainer;
-    public PathObject pathPreview;
     private Renderer pathPreviewRenderer;
-    public static World world;
+	private World m_World;
+	private PathObject m_PathPreview;
 
 	private Vector2 mousePos;
 
 	// Use this for initialization
 	void Start () {
-		world = worldContainer.GetComponent<World> ();
-		editingPoints = new Vector2[2]{new Vector2(-1,-1),new Vector2(-1,-1)};
+		GameObject camera = GameObject.FindWithTag("MainCamera");
+		m_World = camera.GetComponent<World>();
+		GameObject pPrev = GameObject.FindWithTag("PathPreview");
+		m_PathPreview = pPrev.GetComponent<PathObject>();
 
-        pathPreviewRenderer = pathPreview.GetComponent<Renderer>();
+		pathPreviewRenderer = m_PathPreview.GetComponent<Renderer>();
         pathPreviewRenderer.enabled = false;
 
+		editingPoints = new Vector2[2]{new Vector2(-1,-1),new Vector2(-1,-1)};
         this.transform.position = new Vector3(this.transform.position[0], this.transform.position[1], -1);
     }
 	
@@ -33,8 +35,8 @@ public class UIControl : MonoBehaviour {
         mousePos = new Vector2(mouseWorldPos[0], mouseWorldPos[1]);
         if (editing) {
             editingPoints[1] = mousePos;
-            pathPreview.transform.position = new Vector3(editingPoints[0].x, editingPoints[0].y, 0);
-            pathPreview.setShape(wipObject.toPath(editingPoints));
+			m_PathPreview.transform.position = new Vector3(editingPoints[0].x, editingPoints[0].y, 0);
+			m_PathPreview.setShape(wipObject.toPath(editingPoints));
         }
     }
 
@@ -43,7 +45,7 @@ public class UIControl : MonoBehaviour {
 		mousePos = new Vector2(mouseWorldPos[0], mouseWorldPos[1]);
 		if (editing) {
 			editingPoints [1] = mousePos;
-			wipObject.toAdherent(world.Add(new Vector3(editingPoints[0].x,editingPoints[0].y,0)),editingPoints);
+			wipObject.toAdherent(m_World.Add(new Vector3(editingPoints[0].x,editingPoints[0].y,0)),editingPoints);
 			uiState = (int)uiStates.None;
 			editingPoints = new Vector2[2]{new Vector2(-1,-1),new Vector2(-1,-1)};
 			editing = false;

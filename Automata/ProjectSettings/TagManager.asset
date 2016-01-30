@@ -8,6 +8,8 @@ TagManager:
   - Path
   - Obstacle
   - Sink
+  - PathPreview
+  - Buttons
   layers:
   - Default
   - TransparentFX
