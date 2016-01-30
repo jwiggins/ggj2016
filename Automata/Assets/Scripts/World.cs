@@ -5,10 +5,12 @@ using System.Collections.Generic;
 public class World : MonoBehaviour {
 
 	Camera m_Camera;
+	GameObject m_Buttons;
 
 	// All of our spawnable objects
 	public GameObject m_ResourcePrefab;
 	public GameObject m_AdherentPrefab;
+	public GameObject m_ButtonsPrefab;
 
 	private List<Adherent> adherentObjects;
 
@@ -18,6 +20,8 @@ public class World : MonoBehaviour {
 		adherentObjects = new List<Adherent> ();
 		m_Camera.orthographicSize = Screen.width * 0.25f;
 		m_Camera.transform.position = new Vector3(Screen.width * 0.5f,Screen.height * 0.5f,-10f);
+
+		m_Buttons = (GameObject)Instantiate(m_ButtonsPrefab, new Vector3(0f, Screen.height * -0.5f, 0f), Quaternion.identity);
 	}
 	
 	// Update is called once per frame
