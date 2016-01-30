@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class UIControl : MonoBehaviour {
 
+	public GameObject pathPrefab;
+
 	private int uiState = 0;
 	private Vector2[] editingPoints;
     private bool editing = false;
@@ -19,7 +21,7 @@ public class UIControl : MonoBehaviour {
 	void Start () {
 		GameObject camera = GameObject.FindWithTag("MainCamera");
 		m_World = camera.GetComponent<World>();
-		GameObject pPrev = GameObject.FindWithTag("PathPreview");
+		GameObject pPrev = Instantiate(pathPrefab);
 		m_PathPreview = pPrev.GetComponent<PathObject>();
 
 		pathPreviewRenderer = m_PathPreview.GetComponent<Renderer>();

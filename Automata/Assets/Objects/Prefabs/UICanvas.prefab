@@ -235,6 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae201bded9a034ea0b65390bd121af80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pathPrefab: {fileID: 191630, guid: 0b36bfc0b17734e5e8e5a80f41b21063, type: 2}
 --- !u!114 &11427348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -968,6 +969,10 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: -0.74
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: pathPrefab
+      value: 
+      objectReference: {fileID: 191630, guid: 0b36bfc0b17734e5e8e5a80f41b21063, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 102106}
