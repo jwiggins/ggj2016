@@ -54,8 +54,12 @@ public class UIControl : MonoBehaviour {
             editingPoints = new Vector2[2]{new Vector2(-1,-1),new Vector2(-1,-1)};
 			editing = false;
 			pathPreviewRenderer.enabled = false;
-		}
-	
+		} else {
+            Adherent adherent = m_World.FindNearestAdherent(mousePos, 20);
+            if (adherent != null) {
+                m_World.Remove(adherent);
+            }
+        }
 	}
 	void OnMouseDown(){
 		Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
