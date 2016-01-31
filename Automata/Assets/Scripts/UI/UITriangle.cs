@@ -14,7 +14,9 @@ public class UITriangle : UIObject {
     }
 
 	private Path createTriangle(float x,float y,float x2,float y2){
-		Vector3 v3 = new Vector3 (x2-x,y2-y,0.0f);
+        x = (x2 - x) * 0.333333f + x;
+        y = (y2 - y) * 0.333333f + y;
+        Vector3 v3 = new Vector3 (x2-x,y2-y,0.0f);
 		v3 = Quaternion.Euler (0, 0, 120) * v3;
 		Vector2[] points = new Vector2[3];
 		points[0] = new Vector2(x+v3.x, y+v3.y);
