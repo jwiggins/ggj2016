@@ -94,7 +94,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 433130, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 759
+      value: 777
       objectReference: {fileID: 0}
     - target: {fileID: 433130, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
       propertyPath: m_LocalPosition.y
@@ -283,6 +283,33 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 249956321}
   m_Script: {fileID: 11500000, guid: fcda3312de47d4f2aa568e0b08f01840, type: 3}
+--- !u!1 &250400849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 250400850}
+  m_Layer: 0
+  m_Name: Focus07
+  m_TagString: CameraFocus
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &250400850
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 250400849}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1130, y: -570, z: -18}
+  m_LocalScale: {x: 1.9633933, y: 1.9633933, z: 1.9633933}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 25
 --- !u!1001 &284248371
 Prefab:
   m_ObjectHideFlags: 0
@@ -296,7 +323,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 433130, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -241
+      value: -226
       objectReference: {fileID: 0}
     - target: {fileID: 433130, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
       propertyPath: m_LocalPosition.z
@@ -532,7 +559,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 433130, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1514
+      value: -1509
       objectReference: {fileID: 0}
     - target: {fileID: 433130, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
       propertyPath: m_LocalPosition.y
@@ -750,6 +777,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 19
+--- !u!1 &855532729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 855532730}
+  m_Layer: 0
+  m_Name: Focus09
+  m_TagString: CameraFocus
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &855532730
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 855532729}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1130, y: -570, z: -18}
+  m_LocalScale: {x: 1.9633933, y: 1.9633933, z: 1.9633933}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 27
 --- !u!1001 &1120436044
 Prefab:
   m_ObjectHideFlags: 0
@@ -823,7 +877,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 433130, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -815
+      value: -811
       objectReference: {fileID: 0}
     - target: {fileID: 433130, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1426,7 +1480,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 433130, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 244
+      value: 232
       objectReference: {fileID: 0}
     - target: {fileID: 433130, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1541,6 +1595,33 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1376048486}
   m_Script: {fileID: 11500000, guid: 09cd7863fa3f949df852becbae048b14, type: 3}
+--- !u!1 &1518172219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1518172220}
+  m_Layer: 0
+  m_Name: Focus06
+  m_TagString: CameraFocus
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1518172220
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1518172219}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1130, y: 0, z: -18}
+  m_LocalScale: {x: 1.9633933, y: 1.9633933, z: 1.9633933}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 24
 --- !u!1001 &1635113507
 Prefab:
   m_ObjectHideFlags: 0
@@ -1605,6 +1686,60 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1635113507}
   m_Script: {fileID: 11500000, guid: fcda3312de47d4f2aa568e0b08f01840, type: 3}
+--- !u!1 &1720154091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1720154092}
+  m_Layer: 0
+  m_Name: Focus08
+  m_TagString: CameraFocus
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1720154092
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1720154091}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -570, z: -18}
+  m_LocalScale: {x: 1.9633933, y: 1.9633933, z: 1.9633933}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 26
+--- !u!1 &1755508774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1755508775}
+  m_Layer: 0
+  m_Name: Focus05
+  m_TagString: CameraFocus
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1755508775
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1755508774}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -18}
+  m_LocalScale: {x: 1.9633933, y: 1.9633933, z: 1.9633933}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 23
 --- !u!1 &1791104900
 GameObject:
   m_ObjectHideFlags: 0
@@ -1705,7 +1840,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 433130, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -474
+      value: -456
       objectReference: {fileID: 0}
     - target: {fileID: 433130, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1760,3 +1895,30 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1900403623}
   m_Script: {fileID: 11500000, guid: 09cd7863fa3f949df852becbae048b14, type: 3}
+--- !u!1 &2122311630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2122311631}
+  m_Layer: 0
+  m_Name: Focus04
+  m_TagString: CameraFocus
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2122311631
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2122311630}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1130, y: 0, z: -18}
+  m_LocalScale: {x: 1.9633933, y: 1.9633933, z: 1.9633933}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
