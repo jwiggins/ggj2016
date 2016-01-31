@@ -67,7 +67,19 @@ public class Adherent : MonoBehaviour {
 	public void setType(int t){
 		type = t;
 		follower.setSprite (type);
-	}
+
+        Renderer rend = pathObject.GetComponent<Renderer>();
+        rend.material.shader = Shader.Find("Unlit/Color");
+        if (type == 0) {
+            rend.material.SetColor("_Color", new Color(2f / 255f, 184f / 255f, 162f / 255f));
+        } if (type == 1) {
+            rend.material.SetColor("_Color", new Color(234f / 255f, 108f / 255f, 94f / 255f));
+        } if (type == 2) {
+            rend.material.SetColor("_Color", new Color(146f / 255f, 113f / 255f, 159f / 255f));
+        } if (type == 3) {
+            rend.material.SetColor("_Color", new Color(221f / 255f, 181f / 255f, 16f / 255f));
+        }
+    }
 
 	public enum adTypes{
 		Rectangle = 0,
