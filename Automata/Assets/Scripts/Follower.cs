@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Follower : MonoBehaviour {
 
-	private GameObject host;
+	public GameObject host;
 	private Rigidbody2D body;
 
 	// Use this for initialization
@@ -21,11 +21,5 @@ public class Follower : MonoBehaviour {
 	public void place(Vector2 pos,float angle){
 		body.MovePosition(pos);
 		body.MoveRotation(angle);
-	}
-
-	public void attach(Resource r){
-		r.host.transform.SetParent (host.transform);
-		r.host.transform.localPosition = new Vector3 (1,0,0);
-		r.host.transform.localEulerAngles = new Vector3 (1, 0, 0);
 	}
 }

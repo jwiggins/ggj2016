@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Path
 {
     private Vector2[] points;
     private float[] segmentLengths;
     private float length;
+
+    private List<float> intersectionPositions;
 
     public Path(Vector2[] points)
     {
@@ -101,4 +104,72 @@ public class Path
         Vector2 v = p2 - p1;
         return Mathf.Atan2(v.y, v.x) * 180.0f / Mathf.PI - 90.0f;
     }
+
+    public void ClearIntersections() {
+        intersectionPositions = new List<float>();
+    }
+
+    public void SortIntersections() {
+        intersectionPositions.Sort();
+    }
+
+    public void FindIntersections(Path p, Vector2 offset1, Vector2 offset2) {
+        float pos = 0;
+        for (int i = 0; i < points.Length; i++) {
+            Vector2 p1p1 = points[i] + offset1;
+            Vector2 p1p2 = points[(i + 1) % points.Length] + offset1;
+
+            for (int j = 0; j < p.points.Length; j++) {
+                Vector2 p2p1 = p.points[j] + offset2;
+                Vector2 p2p2 = p.points[(j + 1) % p.points.Length] + offset2;
+
+                float r = lineLineIntersectionRatio(p1p1, p1p2, p2p1, p2p2);
+                if (r >= 0 && r <= 1) {
+                    Vector2 point = (p1p2 - p1p1) * r + p1p1;
+                    intersectionPositions.Add(pos + r * segmentLengths[i]);
+                }
+            }
+
+            pos += segmentLengths[i];
+        }
+    }
+
+    private float lineLineIntersectionRatio(Vector2 av1, Vector2 av2, Vector2 bv1, Vector2 bv2) {
+        float bottom1 = -av1.x * bv1.y + av1.x * bv2.y + av2.x * bv1.y - av2.x * bv2.y +
+            bv1.x * av1.y - bv1.x * av2.y - bv2.x * av1.y + bv2.x * av2.y;
+        if (bottom1 != 0) {
+            var top1 = -av1.x * bv1.y + av1.x * bv2.y + bv1.x * av1.y - bv1.x * bv2.y - bv2.x * av1.y + bv2.x * bv1.y;
+            var r1 = top1 / bottom1;
+            if (r1 >= 0 && r1 <= 1) {
+                var top2 = av1.x * av2.y - av1.x * bv1.y - av2.x * av1.y + av2.x * bv1.y +
+                    bv1.x * av1.y - bv1.x * av2.y;
+                var bottom2 = -av1.x * bv1.y + av1.x * bv2.y + av2.x * bv1.y - av2.x * bv2.y +
+                    bv1.x * av1.y - bv1.x * av2.y - bv2.x * av1.y + bv2.x * av2.y;
+                var r2 = top2 / bottom2;
+                if (r2 >= 0 && r2 <= 1) {
+                    return r1;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public bool HasIntersectionBetween(float pos1, float pos2) {
+        for (int i = 0; i < intersectionPositions.Count; i++) {
+            float ipos = intersectionPositions[i];
+            if (ipos >= pos1 && (ipos < pos2 || pos2 < pos1)) {
+                return true;
+            }
+        }
+        return false;
+    }
+	public float GetIntersectionBetween(float pos1, float pos2) {
+		for (int i = 0; i < intersectionPositions.Count; i++) {
+			float ipos = intersectionPositions[i];
+			if (ipos >= pos1 && (ipos < pos2 || pos2 < pos1)) {
+				return ipos;
+			}
+		}
+		return -1;
+	}
 }
