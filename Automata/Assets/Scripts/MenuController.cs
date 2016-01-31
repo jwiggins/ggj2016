@@ -13,6 +13,6 @@ public class MenuController : MonoBehaviour {
 	void Update () {
 		countdownTimer -= Time.deltaTime;
 		if (countdownTimer <= 0f)
-			SceneManager.LoadScene ("Main");
+			SceneManager.LoadScene ("Level1");
 	}
 }
