@@ -150,6 +150,10 @@ public class World : MonoBehaviour {
             Destroy(adherent.gameObject);
 
             FindIntersections();
+
+            if (adherent.isCarrying) {
+                lData[currentLevel].Fountain.generateResource();
+            }
         }
     }
 

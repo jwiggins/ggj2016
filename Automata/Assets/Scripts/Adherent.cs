@@ -7,7 +7,7 @@ public class Adherent : MonoBehaviour {
 	private Follower follower;
 	public PathObject pathObject;
 
-	private bool isCarrying = false;
+	public bool isCarrying = false;
 
 	private int type;
 
