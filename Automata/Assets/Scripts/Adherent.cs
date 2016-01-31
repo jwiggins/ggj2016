@@ -63,6 +63,10 @@ public class Adherent : MonoBehaviour {
 		return type;
 	}
 
+	public void setType(int t){
+		type = t;
+	}
+
 	public enum adTypes{
 		Rectangle = 0,
 		Circle = 1,
