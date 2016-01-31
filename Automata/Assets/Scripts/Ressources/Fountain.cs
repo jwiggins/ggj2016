@@ -3,10 +3,12 @@ using System.Collections;
 
 public class Fountain : MonoBehaviour {
 	public GameObject resourcePrefab;
+	public GameObject host;
 	// Use this for initialization
 
 	void Start(){
-		generateResource ();
+		host = gameObject;
+		//generateResource ();
 	}
 	public void generateResource() {
 		Instantiate(resourcePrefab, transform.position, transform.localRotation);
