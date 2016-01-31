@@ -11,6 +11,6 @@ public class Fountain : MonoBehaviour {
 		//generateResource ();
 	}
 	public void generateResource() {
-		Instantiate(resourcePrefab, transform.position, transform.localRotation);
+		Instantiate(resourcePrefab, transform.position, Quaternion.LookRotation(transform.forward,transform.right));
 	}
 }

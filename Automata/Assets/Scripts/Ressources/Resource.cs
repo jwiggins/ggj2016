@@ -20,7 +20,7 @@ public class Resource : MonoBehaviour{
 
 	IEnumerator Animate() {
 		for (int i = 25; i > 0; i--) {
-			transform.position += transform.right*1.5f;
+			transform.position += transform.up*1.5f;
 			yield return new WaitForSeconds(0.01f);
 		}
 		host.GetComponent<Collider2D> ().enabled = true;
