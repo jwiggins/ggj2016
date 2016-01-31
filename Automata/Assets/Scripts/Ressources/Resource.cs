@@ -2,9 +2,14 @@
 using System.Collections;
 
 public class Resource : MonoBehaviour{
-	public GameObject host;
+	public static GameObject host;
+
+	public static Vector2 Pos;
+	public static Adherent parent;
 	// Use this for initialization
 	void Start () {
+		Pos = new Vector2(-2f,-2f);
+		parent = null;
 		host = gameObject;
 		StartCoroutine ("Animate");
 	}
@@ -24,10 +29,12 @@ public class Resource : MonoBehaviour{
 	void OnTriggerEnter2D (Collider2D other) {
 		switch (other.gameObject.tag) {
 		case "Follower":
-			(other.gameObject.GetComponent<Follower> ()).attach (this);
+			if (Pos.x == -2f) {
+				parent = (other.gameObject.GetComponentInParent<Adherent> ()).attach ();
+			}
 			break;
 		case "Sink":
-			(other.gameObject.GetComponent<Sink> ()).attach (this);
+			(other.gameObject.GetComponent<Sink> ()).attach ();
 			host.GetComponent<Collider2D> ().enabled = false;
 			//TODO:WIN!
 			break;

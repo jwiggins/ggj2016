@@ -163,4 +163,13 @@ public class Path
         }
         return false;
     }
+	public float GetIntersectionBetween(float pos1, float pos2) {
+		for (int i = 0; i < intersectionPositions.Count; i++) {
+			float ipos = intersectionPositions[i];
+			if (ipos >= pos1 && (ipos < pos2 || pos2 < pos1)) {
+				return ipos;
+			}
+		}
+		return -1;
+	}
 }

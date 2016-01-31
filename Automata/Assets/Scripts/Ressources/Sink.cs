@@ -8,9 +8,9 @@ public class Sink : MonoBehaviour {
 		host = gameObject;
 	}
 
-	public void attach(Resource r){
-		r.host.transform.SetParent (host.transform);
-		r.host.transform.localPosition = new Vector3 (1,0,0);
-		r.host.transform.localEulerAngles = new Vector3 (1,0,0);
+	public void attach(){
+		Resource.host.transform.SetParent (host.transform);
+		Resource.host.transform.localPosition = new Vector3 (1,0,0);
+		Resource.host.transform.localEulerAngles = new Vector3 (1,0,0);
 	}
 }
