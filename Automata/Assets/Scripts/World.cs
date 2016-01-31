@@ -53,8 +53,10 @@ public class World : MonoBehaviour {
 
 	private List<Adherent> adherentObjects;
 
-	// Use this for initialization
-	void Start () {
+    public Texture2D[] cursors;
+
+    // Use this for initialization
+    void Start () {
 		m_Camera = GetComponent<Camera>();
 		m_CamAnimator = new CameraAnimator(m_Camera);
 
@@ -63,6 +65,8 @@ public class World : MonoBehaviour {
 
 		m_Buttons = (GameObject)Instantiate(m_ButtonsPrefab);
 		adherentObjects = new List<Adherent> ();
+
+        Cursor.SetCursor(cursors[0], new Vector2(20, 20), CursorMode.Auto);
 	}
 	
 	// Update is called once per frame
