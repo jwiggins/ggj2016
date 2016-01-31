@@ -172,4 +172,31 @@ public class Path
 		}
 		return -1;
 	}
+
+    public float DistanceToPath(Vector2 point) {
+        float closest = float.MaxValue;
+        for (int i = 0; i < points.Length; i++) {
+            float distSqr = DistanceToLineSegmentSqr(point, i);
+            if (distSqr < closest) {
+                closest = distSqr;
+            }
+        }
+        return Mathf.Sqrt(closest);
+    }
+
+    private float DistanceToLineSegmentSqr(Vector2 point, int segement) {
+        Vector2 p1 = points[segement];
+        Vector2 p2 = points[(segement + 1) % points.Length];
+
+        float t = Vector2.Dot(point - p1, p2 - p1) / (p2 - p1).sqrMagnitude;
+        if (t < 0) {
+            return (point - p1).sqrMagnitude;
+        } else  if (t > 1) {
+            return (point - p2).sqrMagnitude;
+        }
+
+        Vector2 nearest = p1 + (p2 - p1) * t;
+
+        return (point - nearest).sqrMagnitude;
+    }
 }

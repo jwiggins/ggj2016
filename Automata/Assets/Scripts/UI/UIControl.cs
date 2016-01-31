@@ -50,11 +50,16 @@ public class UIControl : MonoBehaviour {
 			wipObject.toAdherent(m_World.Add(new Vector3(editingPoints[0].x,editingPoints[0].y,0)),editingPoints);
             m_World.FindIntersections();
             uiState = (int)uiStates.None;
-			editingPoints = new Vector2[2]{new Vector2(-1,-1),new Vector2(-1,-1)};
+            Cursor.SetCursor(m_World.cursors[0], new Vector2(20, 20), CursorMode.Auto);
+            editingPoints = new Vector2[2]{new Vector2(-1,-1),new Vector2(-1,-1)};
 			editing = false;
 			pathPreviewRenderer.enabled = false;
-		}
-	
+		} else {
+            Adherent adherent = m_World.FindNearestAdherent(mousePos, 20);
+            if (adherent != null) {
+                m_World.Remove(adherent);
+            }
+        }
 	}
 	void OnMouseDown(){
 		Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
@@ -69,24 +74,28 @@ public class UIControl : MonoBehaviour {
 	public void rectangleCreator(){
 		uiState = (int)uiStates.createRectangle;
 		wipObject = (UIObject)new UIRectangle ();
-	}
+        Cursor.SetCursor(m_World.cursors[3], new Vector2(32, 32), CursorMode.Auto);
+    }
 
-	public void circleCreator(){
+    public void circleCreator(){
 		uiState = (int)uiStates.createCircle;
 		wipObject = (UIObject)new UICircle ();
-	}
+        Cursor.SetCursor(m_World.cursors[4], new Vector2(32, 32), CursorMode.Auto);
+    }
 
-	public void diamondCreator(){
+    public void diamondCreator(){
 		uiState = (int)uiStates.createDiamond;
 		wipObject = (UIObject)new UIDiamond ();
-	}
+        Cursor.SetCursor(m_World.cursors[2], new Vector2(32, 32), CursorMode.Auto);
+    }
 
-	public void triangleCreator(){
+    public void triangleCreator(){
 		uiState = (int)uiStates.createTriangle;
 		wipObject = (UIObject)new UITriangle ();
-	}
+        Cursor.SetCursor(m_World.cursors[1], new Vector2(32, 32), CursorMode.Auto);
+    }
 
-	public enum uiStates {
+    public enum uiStates {
 		None = 0,
 		createRectangle = 1,
 		createCircle = 2,
