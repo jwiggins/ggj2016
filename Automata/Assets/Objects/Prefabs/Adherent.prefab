@@ -295,6 +295,11 @@ MonoBehaviour:
   - {fileID: 161414, guid: 904ff784512974e2aa09915ed5b0a95b, type: 2}
   - {fileID: 102510, guid: 9bde9161a13684a1a83db8bdae7a399e, type: 2}
   - {fileID: 108832, guid: bc1e285316f424a0483cf1ec2a4b1326, type: 2}
+  attachedSpritePrefabs:
+  - {fileID: 118870, guid: 5435515849af04a1cb0c86f4f239c25e, type: 2}
+  - {fileID: 161414, guid: 572b95d878b724d03948840e1c9af586, type: 2}
+  - {fileID: 102510, guid: eb41309bc05e94f3e81b9af0bf370be5, type: 2}
+  - {fileID: 108832, guid: 9bdef1b6a0e83486285a52b3c5e54ecf, type: 2}
 --- !u!114 &11462386
 MonoBehaviour:
   m_ObjectHideFlags: 1

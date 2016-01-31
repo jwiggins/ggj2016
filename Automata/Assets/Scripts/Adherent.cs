@@ -45,6 +45,7 @@ public class Adherent : MonoBehaviour {
 	}
 
 	public Adherent attach(){
+		follower.attachSprite ();
 		isCarrying = true;
 		Resource.host.transform.SetParent (follower.host.transform);
 		Resource.host.transform.localPosition = new Vector3 (0,0,0);
@@ -53,6 +54,7 @@ public class Adherent : MonoBehaviour {
 	}
 
 	public void detach(){
+		follower.attachSprite ();
 		isCarrying = false;
 		Resource.host.transform.parent = null;
 		Resource.parent = null;
