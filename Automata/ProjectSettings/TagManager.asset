@@ -10,6 +10,7 @@ TagManager:
   - Sink
   - Buttons
   - CameraFocus
+  - BackgroundMusic
   layers:
   - Default
   - TransparentFX
