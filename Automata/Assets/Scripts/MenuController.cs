@@ -1,9 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class MenuController : MonoBehaviour {
 
-	public void goToGame () {
-		Application.LoadLevel ("Main");
+	float countdownTimer;
+
+	void Start () {
+		countdownTimer = 5f;
+	}
+
+	void Update () {
+		countdownTimer -= Time.deltaTime;
+		if (countdownTimer <= 0f)
+			SceneManager.LoadScene ("Main");
 	}
 }
