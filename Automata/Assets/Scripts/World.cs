@@ -86,11 +86,18 @@ public class World : MonoBehaviour {
 		}
 
 	}
-
+    
 	public Adherent Add(Vector2 pos){
 		adherentObjects.Add(((GameObject)Instantiate (m_AdherentPrefab, new Vector3 (pos.x, pos.y, 0), Quaternion.identity)).GetComponent<Adherent> ());
 		return adherentObjects [adherentObjects.Count - 1];
 	}
+
+    public void Remove(Adherent adherent) {
+        if (adherentObjects.Contains(adherent)) {
+            adherentObjects.Remove(adherent);
+            Destroy(adherent.gameObject);
+        }
+    }
 
     public void FindIntersections() {
         for (int p1 = 0; p1 < adherentObjects.Count; p1++) {
@@ -106,5 +113,19 @@ public class World : MonoBehaviour {
                 path1.FindIntersections(path2, pos1, pos2);
             }
         }
+    }
+
+    public Adherent FindNearestAdherent(Vector2 point, float maxDist) {
+        Adherent closest = null;
+        for (int i = 0; i < adherentObjects.Count; i++) {
+            Vector2 pos = adherentObjects[i].transform.position;
+            Path path = adherentObjects[i].pathObject.Path;
+            float dist = path.DistanceToPath(point - pos);
+            if (dist < maxDist) {
+                closest = adherentObjects[i];
+                maxDist = dist;
+            }
+        }
+        return closest;
     }
 }
