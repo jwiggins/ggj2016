@@ -2,10 +2,49 @@
 using System.Collections;
 using System.Collections.Generic;
 
+class CameraAnimator : Object {
+	Camera m_Camera;
+
+	List<GameObject> m_CameraFocii;
+	float focusTime;
+	int focusIndex;
+
+	bool shifting;
+	Vector3 startPos, endPos;
+
+	public CameraAnimator(Camera cam) {
+		m_Camera = cam;
+		m_CameraFocii = new List<GameObject>(GameObject.FindGameObjectsWithTag("CameraFocus"));
+		m_CameraFocii.Sort((x,y) => x.name.CompareTo(y.name));
+		focusTime = 5.0f;
+		focusIndex = 0;
+		shifting = false;
+	}
+
+	public void Update (float delta) {
+		focusTime -= delta;
+		if (focusTime <= 0.0f && focusIndex < m_CameraFocii.Count) {
+			startPos = m_Camera.transform.position;
+			endPos = m_CameraFocii[focusIndex].transform.position;
+			shifting = true;
+			m_Camera.transform.position = m_CameraFocii[focusIndex].transform.position;
+			focusTime = 5.0f;
+			focusIndex += 1;
+		}
+		else if (focusIndex == m_CameraFocii.Count) {
+			shifting = false;
+		}
+		if (shifting) {
+			m_Camera.transform.position = Vector3.Lerp(startPos, endPos, (5.0f - focusTime) / 5.0f);
+		}
+	}
+}
+
 public class World : MonoBehaviour {
 
 	Camera m_Camera;
 	GameObject m_Buttons;
+	CameraAnimator m_CamAnimator;
 
 	// All of our spawnable objects
 	public GameObject m_ResourcePrefab;
@@ -17,16 +56,18 @@ public class World : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		m_Camera = GetComponent<Camera>();
-		adherentObjects = new List<Adherent> ();
+		m_CamAnimator = new CameraAnimator(m_Camera);
+
 		m_Camera.orthographicSize = Screen.width * 0.25f;
 		m_Camera.transform.position = new Vector3(Screen.width * 0.5f,Screen.height * 0.5f,-10f);
 
 		m_Buttons = (GameObject)Instantiate(m_ButtonsPrefab);
+		adherentObjects = new List<Adherent> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+		m_CamAnimator.Update(Time.deltaTime);
 	}
 
 	public void obstacleCollision(Obstacle obst, GameObject collider) {

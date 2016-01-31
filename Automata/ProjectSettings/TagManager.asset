@@ -9,6 +9,7 @@ TagManager:
   - Obstacle
   - Sink
   - Buttons
+  - CameraFocus
   layers:
   - Default
   - TransparentFX
