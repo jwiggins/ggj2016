@@ -7,6 +7,12 @@ public class Follower : MonoBehaviour {
 	private Rigidbody2D body;
 
 	public GameObject[] spritePrefabs;
+	public GameObject[] attachedSpritePrefabs;
+
+	private GameObject sprite;
+	private GameObject aSprite;
+
+	private bool flip = false;
 
 	// Use this for initialization
 	void Start () {
@@ -26,8 +32,19 @@ public class Follower : MonoBehaviour {
 	}
 
 	public void setSprite(int i){
-		GameObject obj = (GameObject)Instantiate (spritePrefabs [i], new Vector3 (0f, 0f, 0f), Quaternion.identity);
-		obj.transform.parent = gameObject.transform;
-		obj.transform.localPosition = Vector3.zero;
+		sprite = (GameObject)Instantiate (spritePrefabs [i], new Vector3 (0f, 0f, 0f), Quaternion.identity);
+		sprite.transform.parent = gameObject.transform;
+		sprite.transform.localPosition = Vector3.zero;
+
+		aSprite = (GameObject)Instantiate (attachedSpritePrefabs [i], new Vector3 (0f, 0f, 0f), Quaternion.identity);
+		aSprite.transform.parent = gameObject.transform;
+		aSprite.transform.localPosition = Vector3.zero;
+		aSprite.SetActive(false);
+	}
+
+	public void attachSprite(){
+		sprite.SetActive (flip);
+		aSprite.SetActive (!flip);
+		flip = !flip;
 	}
 }
