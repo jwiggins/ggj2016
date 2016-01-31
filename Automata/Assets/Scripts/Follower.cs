@@ -42,7 +42,7 @@ public class Follower : MonoBehaviour {
 		aSprite.SetActive(false);
 	}
 
-	public void attachSprite(){
+	public void swapSprite(){
 		sprite.SetActive (flip);
 		aSprite.SetActive (!flip);
 		flip = !flip;
