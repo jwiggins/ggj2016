@@ -24,10 +24,10 @@ public class Adherent : MonoBehaviour {
 	void FixedUpdate () {
         float oldX = x;
         x += 4f;
-        x %= pathObject.Path.Length;
-        Vector2 point = pathObject.Path.GetPointAt(x);
-        float angle = pathObject.Path.GetAngleAt(x);
-		float inter = pathObject.Path.GetIntersectionBetween (oldX, x);
+        x %= pathObject.path.Length;
+		Vector2 point = pathObject.path.GetPointAt(x);
+		float angle = pathObject.path.GetAngleAt(x);
+		float inter = pathObject.path.GetIntersectionBetween (oldX, x);
 		Vector2 interPoint = point + new Vector2 (host.transform.position.x, host.transform.position.y);
 		if (inter != -1) {
 			if (isCarrying) {

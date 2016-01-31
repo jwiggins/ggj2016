@@ -3,31 +3,24 @@ using System.Collections;
 
 public class PathObject : MonoBehaviour {
 
-	private GameObject host;
-	private PolygonCollider2D collider;
-	private Path path, path2;
+	private PolygonCollider2D m_collider;
+	private Path m_path;
 
 	// Use this for initialization
 	void Awake () {
-		host = gameObject;
-		collider = host.GetComponent<PolygonCollider2D> ();
+		m_collider = GetComponent<PolygonCollider2D> ();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+	void setCollider(Vector2[] points) {
+		m_collider.SetPath (0,points);
 	}
 
-	void setCollider(Vector2[] points){
-		collider.SetPath (0,points);
-	}
-
-	void setCollider(){
-		collider.SetPath (0, path.Points);
+	void setCollider() {
+		m_collider.SetPath (0, m_path.Points);
 	}
 
 	void setLineRender(){
-		setLineRender (path.Points);
+		setLineRender (m_path.Points);
 	}
 
 	void setLineRender(Vector2[] points){
@@ -62,16 +55,16 @@ public class PathObject : MonoBehaviour {
         GetComponent<MeshFilter>().mesh = mesh;
     }
 
-    public Path Path
+    public Path path
     {
         get
         {
-            return path;
+			return m_path;
         }
     }
+
 	public void setShape(Path p){
-		path = p;
-        path2 = p; // don't ask, it fixes a problem where apparently path gets garbage collected in the background
+		m_path = p;
         setCollider ();
 		setLineRender ();
 	}
