@@ -3,21 +3,7 @@ using System.Collections;
 
 public class PathObject : MonoBehaviour {
 
-	private PolygonCollider2D m_collider;
 	private Path m_path;
-
-	// Use this for initialization
-	void Awake () {
-		m_collider = GetComponent<PolygonCollider2D> ();
-	}
-	
-	void setCollider(Vector2[] points) {
-		m_collider.SetPath (0,points);
-	}
-
-	void setCollider() {
-		m_collider.SetPath (0, m_path.Points);
-	}
 
 	void setLineRender(){
 		setLineRender (m_path.Points);
@@ -65,7 +51,6 @@ public class PathObject : MonoBehaviour {
 
 	public void setShape(Path p){
 		m_path = p;
-        setCollider ();
 		setLineRender ();
 	}
 }
