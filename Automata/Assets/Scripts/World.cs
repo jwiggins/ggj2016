@@ -99,7 +99,8 @@ public class World : MonoBehaviour {
 		Instantiate(m_SoundPrefab);
 		adherentObjects = new List<Adherent> ();
 
-		lData [0].Fountain.generateResource ();
+		lData [currentLevel].Fountain.generateResource ();
+		Resource.level = currentLevel;
 
         Cursor.SetCursor(cursors[0], new Vector2(20, 20), CursorMode.Auto);
 	}
@@ -121,6 +122,9 @@ public class World : MonoBehaviour {
 			callbackFct = SetupResource;
 			StartCoroutine (m_CamAnimator.Pan (callbackFct));
 		}
+
+		// Keep the resource on the right level
+		Resource.level = currentLevel;
 	}
 
 	public void SetupResource(){
@@ -140,7 +144,10 @@ public class World : MonoBehaviour {
 	}
     
 	public Adherent Add(Vector2 pos){
-		adherentObjects.Add(((GameObject)Instantiate (m_AdherentPrefab, new Vector3 (pos.x, pos.y, 0), Quaternion.identity)).GetComponent<Adherent> ());
+		Adherent newAd = ((GameObject)Instantiate (m_AdherentPrefab, new Vector3 (pos.x, pos.y, 0), Quaternion.identity)).GetComponent<Adherent> ();
+		newAd.level = currentLevel;
+
+		adherentObjects.Add(newAd);
 		return adherentObjects [adherentObjects.Count - 1];
 	}
 

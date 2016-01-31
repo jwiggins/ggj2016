@@ -8,6 +8,7 @@ public class Adherent : MonoBehaviour {
 	public PathObject pathObject;
 
 	public bool isCarrying = false;
+	public int level;
 
 	private int type;
 
@@ -33,7 +34,9 @@ public class Adherent : MonoBehaviour {
 			if (isCarrying) {
 				Resource.Pos = interPoint;
 				this.detach ();
-			} else if (Resource.parent == null && (Resource.Pos - interPoint).magnitude < 10f) {//Failure Radius
+			} else if (Resource.level == this.level &&
+					   Resource.parent == null &&
+					   (Resource.Pos - interPoint).magnitude < 10f) {//Failure Radius
 				Resource.parent = this.attach ();
 			}
 		}
