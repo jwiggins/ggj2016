@@ -8,6 +8,7 @@ public class Adherent : MonoBehaviour {
 	public PathObject pathObject;
 
 	public bool isCarrying = false;
+	public int level;
 
 	private int type;
 
@@ -24,16 +25,18 @@ public class Adherent : MonoBehaviour {
 	void FixedUpdate () {
         float oldX = x;
         x += 4f;
-        x %= pathObject.Path.Length;
-        Vector2 point = pathObject.Path.GetPointAt(x);
-        float angle = pathObject.Path.GetAngleAt(x);
-		float inter = pathObject.Path.GetIntersectionBetween (oldX, x);
+        x %= pathObject.path.Length;
+		Vector2 point = pathObject.path.GetPointAt(x);
+		float angle = pathObject.path.GetAngleAt(x);
+		float inter = pathObject.path.GetIntersectionBetween (oldX, x);
 		Vector2 interPoint = point + new Vector2 (host.transform.position.x, host.transform.position.y);
 		if (inter != -1) {
 			if (isCarrying) {
 				Resource.Pos = interPoint;
 				this.detach ();
-			} else if (Resource.parent == null && (Resource.Pos - interPoint).magnitude < 10f) {//Failure Radius
+			} else if (Resource.level == this.level &&
+					   Resource.parent == null &&
+					   (Resource.Pos - interPoint).magnitude < 10f) {//Failure Radius
 				Resource.parent = this.attach ();
 			}
 		}
@@ -45,7 +48,7 @@ public class Adherent : MonoBehaviour {
 	}
 
 	public Adherent attach(){
-		follower.attachSprite ();
+		follower.swapSprite ();
 		isCarrying = true;
 		Resource.host.transform.SetParent (follower.host.transform);
 		Resource.host.transform.localPosition = new Vector3 (0,0,0);
@@ -54,7 +57,7 @@ public class Adherent : MonoBehaviour {
 	}
 
 	public void detach(){
-		follower.attachSprite ();
+		follower.swapSprite ();
 		isCarrying = false;
 		Resource.host.transform.parent = null;
 		Resource.parent = null;

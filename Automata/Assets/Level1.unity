@@ -713,7 +713,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0.019607844}
+  m_BackGroundColor: {r: 0.9019608, g: 0.9019608, b: 0.9019608, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -941,9 +941,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 1196118089}
   - 212: {fileID: 1196118088}
-  - 114: {fileID: 1196118090}
   - 60: {fileID: 1196118087}
   - 114: {fileID: 1196118091}
+  - 114: {fileID: 1196118090}
   m_Layer: 0
   m_Name: Level
   m_TagString: Obstacle
@@ -1304,7 +1304,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1196118086}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4760e1b1e7e034d84b0604e306196f56, type: 3}
+  m_Script: {fileID: 11500000, guid: b4f9c5403257a4ed9bce761aa50f8e6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1196118091
