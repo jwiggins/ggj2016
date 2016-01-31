@@ -32,7 +32,6 @@ public class Adherent : MonoBehaviour {
 		if (inter != -1) {
 			if (isCarrying) {
 				Resource.Pos = interPoint;
-				Debug.Log (Resource.Pos);
 				this.detach ();
 			} else if (Resource.parent == null && (Resource.Pos - interPoint).magnitude < 10f) {//Failure Radius
 				Resource.parent = this.attach ();

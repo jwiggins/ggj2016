@@ -14,11 +14,16 @@ public class Resource : MonoBehaviour{
 		StartCoroutine ("Animate");
 	}
 
+	public void Respawn(){
+		StartCoroutine ("Animate");
+	}
+
 	IEnumerator Animate() {
 		for (int i = 25; i > 0; i--) {
 			transform.position += transform.right*1.5f;
 			yield return new WaitForSeconds(0.01f);
 		}
+		host.GetComponent<Collider2D> ().enabled = true;
 	}
 	
 	// Update is called once per frame
@@ -36,6 +41,12 @@ public class Resource : MonoBehaviour{
 		case "Sink":
 			(other.gameObject.GetComponent<Sink> ()).attach ();
 			host.GetComponent<Collider2D> ().enabled = false;
+			World wrld = World.host.GetComponent<World> ();
+			if (other.gameObject.GetComponent<Sink> () == wrld.lData [World.currentLevel].Target) {
+				Debug.Log ("Level Finished!");
+				wrld.nextLevel ();
+				Pos = new Vector2(-2f,-2f);
+			}
 			//TODO:WIN!
 			break;
 		}
