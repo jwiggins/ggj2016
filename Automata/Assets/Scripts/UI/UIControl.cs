@@ -48,7 +48,8 @@ public class UIControl : MonoBehaviour {
 		if (editing) {
 			editingPoints [1] = mousePos;
 			wipObject.toAdherent(m_World.Add(new Vector3(editingPoints[0].x,editingPoints[0].y,0)),editingPoints);
-			uiState = (int)uiStates.None;
+            m_World.FindIntersections();
+            uiState = (int)uiStates.None;
 			editingPoints = new Vector2[2]{new Vector2(-1,-1),new Vector2(-1,-1)};
 			editing = false;
 			pathPreviewRenderer.enabled = false;

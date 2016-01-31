@@ -5,7 +5,7 @@ public class Adherent : MonoBehaviour {
 
 	private GameObject host;
 	private Follower follower;
-	private PathObject pathObject;
+	public PathObject pathObject;
 
 	private float x = 0;
 
@@ -18,8 +18,12 @@ public class Adherent : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+        float oldX = x;
         x += 4f;
         x %= pathObject.Path.Length;
+        if (pathObject.Path.HasIntersectionBetween(oldX, x)) {
+            //Debug.Log("cross");
+        }
         Vector2 point = pathObject.Path.GetPointAt(x);
         float angle = pathObject.Path.GetAngleAt(x);
 		follower.place(point+new Vector2(host.transform.position.x,host.transform.position.y), angle);
