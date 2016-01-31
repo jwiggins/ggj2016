@@ -83,6 +83,7 @@ public class World : MonoBehaviour {
 	public static int currentLevel = 0;
 	protected CallBackResource callbackFct;
 
+
     public Texture2D[] cursors;
 
     // Use this for initialization
@@ -91,8 +92,8 @@ public class World : MonoBehaviour {
 		m_Camera = GetComponent<Camera>();
 		m_CamAnimator = new CameraAnimator(m_Camera);
 
-		m_Camera.orthographicSize = 200;
-		m_Camera.transform.position = new Vector3(360,240,-10f);
+		//m_Camera.orthographicSize = Screen.width * 0.25f;
+		m_Camera.transform.position = new Vector3(-1130,570,-10f);//new Vector3(Screen.width * 0.5f,Screen.height * 0.5f,-10f);
 
 		Instantiate(m_ButtonsPrefab);
 		Instantiate(m_SoundPrefab);
