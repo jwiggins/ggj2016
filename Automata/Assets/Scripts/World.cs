@@ -43,13 +43,13 @@ class CameraAnimator : Object {
 public class World : MonoBehaviour {
 
 	Camera m_Camera;
-	GameObject m_Buttons;
 	CameraAnimator m_CamAnimator;
 
 	// All of our spawnable objects
 	public GameObject m_ResourcePrefab;
 	public GameObject m_AdherentPrefab;
 	public GameObject m_ButtonsPrefab;
+	public GameObject m_SoundPrefab;
 
 	private List<Adherent> adherentObjects;
 
@@ -61,7 +61,8 @@ public class World : MonoBehaviour {
 		m_Camera.orthographicSize = Screen.width * 0.25f;
 		m_Camera.transform.position = new Vector3(Screen.width * 0.5f,Screen.height * 0.5f,-10f);
 
-		m_Buttons = (GameObject)Instantiate(m_ButtonsPrefab);
+		Instantiate(m_ButtonsPrefab);
+		Instantiate(m_SoundPrefab);
 		adherentObjects = new List<Adherent> ();
 	}
 	

@@ -186,3 +186,4 @@ MonoBehaviour:
   m_ResourcePrefab: {fileID: 0}
   m_AdherentPrefab: {fileID: 143762, guid: 10356823949d145b38a77726863f9bad, type: 2}
   m_ButtonsPrefab: {fileID: 102106, guid: e9b2fb1029bd34c849c518c8e716ff63, type: 2}
+  m_SoundPrefab: {fileID: 159534, guid: b525304a547bd4109aeeb41dc48bcdb0, type: 2}
