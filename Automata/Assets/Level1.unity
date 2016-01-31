@@ -666,7 +666,12 @@ MonoBehaviour:
   - PanTime: 2
     Fountain: {fileID: 559394608}
     Target: {fileID: 0}
-  cursors: []
+  cursors:
+  - {fileID: 2800000, guid: 66bd1cadc0444a6428b3f392474c844c, type: 3}
+  - {fileID: 2800000, guid: 1eb881298a679ff44bdb3b41082c7cfc, type: 3}
+  - {fileID: 2800000, guid: bf9f0a379bb67cb4096ad45d61867349, type: 3}
+  - {fileID: 2800000, guid: 28a1eae0ffe0d96418b5c140f5ffb7c6, type: 3}
+  - {fileID: 2800000, guid: f8f32852397905d45808c03f655a1db8, type: 3}
 --- !u!81 &832920098
 AudioListener:
   m_ObjectHideFlags: 0
