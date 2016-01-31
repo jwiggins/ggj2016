@@ -1,0 +1,117 @@
+fileFormatVersion: 2
+guid: 2dad283d348a240719aa89b3ab8c75bc
+timeCreated: 1454210053
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: sprites-04
+    21300002: sprites-04_0
+    21300004: sprites-04_1
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: sprites-04
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 112
+        width: 44
+        height: 80
+      alignment: 9
+      pivot: {x: 0.5, y: 0.26}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -6, y: 59.199997}
+        - {x: -22, y: 48.199997}
+        - {x: -22, y: -8.800003}
+        - {x: -17, y: -20.800003}
+        - {x: 19, y: -20.800003}
+        - {x: 22, y: -6.800003}
+        - {x: 22, y: 50.199997}
+        - {x: 12, y: 59.199997}
+    - name: sprites-04_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 235
+        width: 43
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -15.5, y: 21.5}
+        - {x: -21.5, y: 8.5}
+        - {x: -21.5, y: -11.5}
+        - {x: -14.5, y: -21.5}
+        - {x: 14.5, y: -21.5}
+        - {x: 21.5, y: -15.5}
+        - {x: 21.5, y: 12.5}
+        - {x: 18.5, y: 21.5}
+    - name: sprites-04_1
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 12
+        width: 43
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -15.5, y: 21.5}
+        - {x: -21.5, y: 8.5}
+        - {x: -21.5, y: -11.5}
+        - {x: -14.5, y: -21.5}
+        - {x: 14.5, y: -21.5}
+        - {x: 21.5, y: -15.5}
+        - {x: 21.5, y: 12.5}
+        - {x: 18.5, y: 21.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

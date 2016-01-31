@@ -6,6 +6,8 @@ public class Follower : MonoBehaviour {
 	public GameObject host;
 	private Rigidbody2D body;
 
+	public GameObject[] spritePrefabs;
+
 	// Use this for initialization
 	void Start () {
 		host = gameObject;
@@ -21,5 +23,11 @@ public class Follower : MonoBehaviour {
 	public void place(Vector2 pos,float angle){
 		body.MovePosition(pos);
 		body.MoveRotation(angle);
+	}
+
+	public void setSprite(int i){
+		GameObject obj = (GameObject)Instantiate (spritePrefabs [i], new Vector3 (0f, 0f, 0f), Quaternion.identity);
+		obj.transform.parent = gameObject.transform;
+		obj.transform.localPosition = Vector3.zero;
 	}
 }

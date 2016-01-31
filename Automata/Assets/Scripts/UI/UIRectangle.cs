@@ -5,6 +5,7 @@ public class UIRectangle : UIObject {
 
 	public override void toAdherent(Adherent target,Vector2[] points){
 		target.setpath(toPath(points));
+		target.setType((int)Adherent.adTypes.Rectangle);
 	}
 
     public override Path toPath(Vector2[] points)

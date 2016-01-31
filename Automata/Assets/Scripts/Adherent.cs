@@ -9,6 +9,8 @@ public class Adherent : MonoBehaviour {
 
 	private bool isCarrying = false;
 
+	private int type;
+
 	private float x = 0;
 
 	// Use this for initialization
@@ -56,5 +58,20 @@ public class Adherent : MonoBehaviour {
 		Resource.host.transform.parent = null;
 		Resource.parent = null;
 	}
-		
+
+	public int getType(){
+		return type;
+	}
+
+	public void setType(int t){
+		type = t;
+		follower.setSprite (type);
+	}
+
+	public enum adTypes{
+		Rectangle = 0,
+		Circle = 1,
+		Diamond = 2,
+		Triangle = 3
+	}
 }
