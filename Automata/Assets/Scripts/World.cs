@@ -91,8 +91,8 @@ public class World : MonoBehaviour {
 		m_Camera = GetComponent<Camera>();
 		m_CamAnimator = new CameraAnimator(m_Camera);
 
-		m_Camera.orthographicSize = Screen.width * 0.25f;
-		m_Camera.transform.position = new Vector3(Screen.width * 0.5f,Screen.height * 0.5f,-10f);
+		m_Camera.orthographicSize = 200;
+		m_Camera.transform.position = new Vector3(360,240,-10f);
 
 		Instantiate(m_ButtonsPrefab);
 		Instantiate(m_SoundPrefab);
@@ -135,11 +135,7 @@ public class World : MonoBehaviour {
 		GameObject gamObj = collider.transform.parent.gameObject;
 		Adherent addy = (Adherent)(gamObj.GetComponent<Adherent>());
 
-		if (adherentObjects.Contains(addy)) {
-			adherentObjects.Remove(addy);
-			Destroy(gamObj);
-		}
-
+        Remove(addy);
 	}
     
 	public Adherent Add(Vector2 pos){
@@ -151,6 +147,8 @@ public class World : MonoBehaviour {
         if (adherentObjects.Contains(adherent)) {
             adherentObjects.Remove(adherent);
             Destroy(adherent.gameObject);
+
+            FindIntersections();
         }
     }
 
