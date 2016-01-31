@@ -65,6 +65,7 @@ public class Adherent : MonoBehaviour {
 
 	public void setType(int t){
 		type = t;
+		follower.setSprite (type);
 	}
 
 	public enum adTypes{
