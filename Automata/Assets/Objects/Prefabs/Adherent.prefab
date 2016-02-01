@@ -293,6 +293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathObject: {fileID: 0}
   isCarrying: 0
+  level: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
