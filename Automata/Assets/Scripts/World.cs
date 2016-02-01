@@ -107,9 +107,14 @@ public class World : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		#if UNITY_EDITOR
+		// Only include the level skip when working in unity
 		if (Input.GetKeyDown("space")) {
 			nextLevel ();
 		}
+		#endif
+
 		//m_CamAnimator.Update(Time.deltaTime);
 	}
 
