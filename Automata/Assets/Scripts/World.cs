@@ -99,7 +99,8 @@ public class World : MonoBehaviour {
 		Instantiate(m_SoundPrefab);
 		adherentObjects = new List<Adherent> ();
 
-		lData [0].Fountain.generateResource ();
+		lData [currentLevel].Fountain.generateResource ();
+		Resource.level = currentLevel;
 
         Cursor.SetCursor(cursors[0], new Vector2(20, 20), CursorMode.Auto);
 	}
@@ -121,6 +122,9 @@ public class World : MonoBehaviour {
 			callbackFct = SetupResource;
 			StartCoroutine (m_CamAnimator.Pan (callbackFct));
 		}
+
+		// Keep the resource on the right level
+		Resource.level = currentLevel;
 	}
 
 	public void SetupResource(){
@@ -140,7 +144,10 @@ public class World : MonoBehaviour {
 	}
     
 	public Adherent Add(Vector2 pos){
-		adherentObjects.Add(((GameObject)Instantiate (m_AdherentPrefab, new Vector3 (pos.x, pos.y, 0), Quaternion.identity)).GetComponent<Adherent> ());
+		Adherent newAd = ((GameObject)Instantiate (m_AdherentPrefab, new Vector3 (pos.x, pos.y, 0), Quaternion.identity)).GetComponent<Adherent> ();
+		newAd.level = currentLevel;
+
+		adherentObjects.Add(newAd);
 		return adherentObjects [adherentObjects.Count - 1];
 	}
 
@@ -160,14 +167,14 @@ public class World : MonoBehaviour {
     public void FindIntersections() {
         for (int p1 = 0; p1 < adherentObjects.Count; p1++) {
             Vector2 pos1 = adherentObjects[p1].transform.position;
-            Path path1 = adherentObjects[p1].pathObject.Path;
+			Path path1 = adherentObjects[p1].pathObject.path;
             path1.ClearIntersections();
             for (int p2 = 0; p2 < adherentObjects.Count; p2++) {
                 if (p1 == p2) {
                     continue;
                 }
                 Vector2 pos2 = adherentObjects[p2].transform.position;
-                Path path2 = adherentObjects[p2].pathObject.Path;
+				Path path2 = adherentObjects[p2].pathObject.path;
                 path1.FindIntersections(path2, pos1, pos2);
             }
         }
@@ -177,7 +184,7 @@ public class World : MonoBehaviour {
         Adherent closest = null;
         for (int i = 0; i < adherentObjects.Count; i++) {
             Vector2 pos = adherentObjects[i].transform.position;
-            Path path = adherentObjects[i].pathObject.Path;
+			Path path = adherentObjects[i].pathObject.path;
             float dist = path.DistanceToPath(point - pos);
             if (dist < maxDist) {
                 closest = adherentObjects[i];

@@ -6,6 +6,9 @@ public class Resource : MonoBehaviour{
 
 	public static Vector2 Pos;
 	public static Adherent parent;
+	public static int level;
+
+
 	// Use this for initialization
 	void Start () {
 		Pos = new Vector2(-2f,-2f);
@@ -39,6 +42,7 @@ public class Resource : MonoBehaviour{
 			}
 			break;
 		case "Sink":
+			parent.detach();
 			(other.gameObject.GetComponent<Sink> ()).attach ();
 			host.GetComponent<Collider2D> ().enabled = false;
 			World wrld = World.host.GetComponent<World> ();
