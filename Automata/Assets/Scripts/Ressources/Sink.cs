@@ -2,15 +2,9 @@
 using System.Collections;
 
 public class Sink : MonoBehaviour {
-	private GameObject host;
-
-	void Start(){
-		host = gameObject;
-	}
-
-	public void attach(){
-		Resource.host.transform.SetParent (host.transform);
-		Resource.host.transform.localPosition = new Vector3 (1,0,0);
-		Resource.host.transform.localEulerAngles = new Vector3 (1,0,0);
+	public void attach(Resource res) {
+		res.gameObject.transform.SetParent(transform);
+		res.gameObject.transform.localPosition = new Vector3(1,0,0);
+		res.gameObject.transform.localEulerAngles = new Vector3(1,0,0);
 	}
 }
