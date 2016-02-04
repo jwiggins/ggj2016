@@ -18,7 +18,6 @@ public class Adherent : MonoBehaviour {
 	public int level;
 	private int type;
 	private float x = 0;
-	private float releaseDecay;
 
 	// Use this for initialization
 	void Awake () {
@@ -29,7 +28,6 @@ public class Adherent : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		releaseDecay -= Time.fixedDeltaTime;
 		float oldX = x;
         x += 4f;
         x %= pathObject.path.Length;
@@ -39,13 +37,12 @@ public class Adherent : MonoBehaviour {
 		Vector2 interPoint = point + new Vector2(host.transform.position.x, host.transform.position.y);
 		if (inter != -1) {
 			Resource levelRes = ResourceManager.levelResource(level);
-			if (isCarrying) {
+			float dist = (levelRes.Pos - interPoint).magnitude;
+			if (isCarrying && levelRes.canCollide) {
 				this.detach(levelRes);
 				levelRes.Pos = interPoint;
 			}
-			else if (!levelRes.hasParent() &&
-				     releaseDecay <= 0f &&
-				     (levelRes.Pos - interPoint).magnitude < 10f) {  //Failure Radius
+			else if (!levelRes.hasParent() && levelRes.canCollide && dist < 5f) {  //Failure Radius
 				this.attach(levelRes);
 			}
 		}
@@ -64,18 +61,19 @@ public class Adherent : MonoBehaviour {
 		res.gameObject.transform.SetParent(follower.host.transform);
 		res.gameObject.transform.localPosition = new Vector3(0,0,0);
 		res.gameObject.transform.localEulerAngles = new Vector3(1, 0, 0);
+		res.pauseCollision();
 		return this;
 	}
 
 	public void detach(Resource res) {
 		follower.swapSprite();
 		isCarrying = false;
-		releaseDecay = 1.0f;
 
 		res.gameObject.transform.SetParent(null);
-		res.gameObject.transform.localPosition = new Vector3(0,0,0);
-		res.gameObject.transform.localEulerAngles = new Vector3(1, 0, 0);
+		res.gameObject.transform.localPosition = follower.gameObject.transform.position;
+		res.gameObject.transform.localEulerAngles = follower.gameObject.transform.localEulerAngles;
 		res.parent = null;
+		res.pauseCollision();
 	}
 
 	public int getType(){

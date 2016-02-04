@@ -6,9 +6,12 @@ public class Resource : MonoBehaviour{
 	public Adherent parent;
 	public int level;
 
+	private bool m_collisionEnabled;
+
 	// Use this for initialization
 	void Start () {
 		parent = null;
+		this.canCollide = false;
 		StartCoroutine ("Animate");
 	}
 
@@ -21,8 +24,28 @@ public class Resource : MonoBehaviour{
 		StartCoroutine ("Animate");
 	}
 
+	public bool canCollide {
+		get {
+			return m_collisionEnabled;
+		}
+		set {
+			m_collisionEnabled = value;
+			GetComponent<Collider2D>().enabled = m_collisionEnabled;
+		}
+	}
+
 	public bool hasParent() {
 		return parent != null;
+	}
+
+	public void pauseCollision() {
+		StartCoroutine("NoCollisions");
+	}
+
+	IEnumerator NoCollisions() {
+		this.canCollide = false;
+		yield return new WaitForSeconds(0.25f);
+		this.canCollide = true;
 	}
 
 	IEnumerator Animate() {
@@ -30,7 +53,7 @@ public class Resource : MonoBehaviour{
 			transform.position += transform.up*1.5f;
 			yield return new WaitForSeconds(0.01f);
 		}
-		GetComponent<Collider2D>().enabled = true;
+		this.canCollide = true;
 	}
 	
 	void OnTriggerEnter2D (Collider2D other) {
@@ -43,7 +66,7 @@ public class Resource : MonoBehaviour{
 		case "Sink":
 			parent.detach(this);
 			(other.gameObject.GetComponent<Sink>()).attach(this);
-			GetComponent<Collider2D>().enabled = false;
+			this.canCollide = false;
 			World wrld = World.host.GetComponent<World>();
 			if (other.gameObject.GetComponent<Sink>() == wrld.lData[World.currentLevel].Target) {
 				Debug.Log ("Level Finished!");
