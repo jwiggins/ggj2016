@@ -34,16 +34,14 @@ public class Adherent : MonoBehaviour {
 		Vector2 point = pathObject.path.GetPointAt(x);
 		float angle = pathObject.path.GetAngleAt(x);
 		float inter = pathObject.path.GetIntersectionBetween(oldX, x);
-		Vector2 interPoint = point + new Vector2(host.transform.position.x, host.transform.position.y);
 		if (inter != -1) {
 			Resource levelRes = ResourceManager.levelResource(level);
+            Vector2 interPoint = point + new Vector2(host.transform.position.x, host.transform.position.y);
 			float dist = (levelRes.Pos - interPoint).magnitude;
-			if (isCarrying && levelRes.canCollide) {
+
+            if (isCarrying && levelRes.canCollide) {
 				this.detach(levelRes);
 				levelRes.Pos = interPoint;
-			}
-			else if (!levelRes.hasParent() && levelRes.canCollide && dist < 5f) {  //Failure Radius
-				this.attach(levelRes);
 			}
 		}
 		follower.place(point+new Vector2(host.transform.position.x, host.transform.position.y), angle);
