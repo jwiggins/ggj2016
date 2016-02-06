@@ -140,7 +140,7 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1.9633933
       objectReference: {fileID: 0}
-    - target: {fileID: 21239882, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -385,7 +385,7 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1.9633933
       objectReference: {fileID: 0}
-    - target: {fileID: 21239882, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -465,6 +465,10 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 168218, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
+      propertyPath: m_TagString
+      value: Respawn
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
   m_IsPrefabParent: 0
@@ -538,6 +542,14 @@ Prefab:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 495368, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 466270, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 466270, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
       propertyPath: m_LocalPosition.x
       value: 1
       objectReference: {fileID: 0}
@@ -1598,7 +1610,7 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 21239882, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -1974,7 +1986,7 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1.9633933
       objectReference: {fileID: 0}
-    - target: {fileID: 21239882, guid: a7da478584e9c488aa3cc9c200e95392, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}

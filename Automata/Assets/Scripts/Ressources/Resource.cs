@@ -7,6 +7,8 @@ public class Resource : MonoBehaviour{
 	public int level;
 
 	private bool m_collisionEnabled;
+    private Vector3 m_StartPos;
+    private Vector3 m_EndPos;
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +22,9 @@ public class Resource : MonoBehaviour{
 		transform.SetParent(fount.gameObject.transform);
 		transform.localPosition = new Vector3(1,0,0);
         transform.localEulerAngles = new Vector3(1,0,0);
+        transform.SetParent(null);
+        m_StartPos = transform.position;
+        m_EndPos = fount.respawnPointPrefab.transform.position;
 
 		StartCoroutine ("Animate");
 	}
@@ -49,8 +54,10 @@ public class Resource : MonoBehaviour{
 	}
 
 	IEnumerator Animate() {
-		for (int i = 10; i > 0; i--) {
-			transform.position += transform.up*1.5f;
+        const int kNumSteps = 10;
+
+        for (int i = 1; i <= kNumSteps; i++) {
+            transform.position = Vector3.Lerp(m_StartPos, m_EndPos, i / (float)kNumSteps);
 			yield return new WaitForSeconds(0.01f);
 		}
 		this.canCollide = true;
@@ -71,7 +78,6 @@ public class Resource : MonoBehaviour{
 			if (other.gameObject.GetComponent<Sink>() == wrld.lData[World.currentLevel].Target) {
 				Debug.Log ("Level Finished!");
 				wrld.nextLevel();
-				//Pos = new Vector2(-2f,-2f);
 			}
 			break;
 		}
