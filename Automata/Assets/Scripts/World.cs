@@ -97,76 +97,68 @@ public class World : MonoBehaviour {
 
 		Instantiate(m_ButtonsPrefab);
 		Instantiate(m_SoundPrefab);
-		adherentObjects = new List<Adherent> ();
+		adherentObjects = new List<Adherent>();
 
-		lData [currentLevel].Fountain.generateResource ();
-		Resource.level = currentLevel;
-
+		lData[currentLevel].Fountain.generateResource();
+	
         Cursor.SetCursor(cursors[0], new Vector2(20, 20), CursorMode.Auto);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
 		#if UNITY_EDITOR
 		// Only include the level skip when working in unity
 		if (Input.GetKeyDown("space")) {
 			nextLevel ();
 		}
 		#endif
-
-		//m_CamAnimator.Update(Time.deltaTime);
 	}
 
 	public void nextLevel(){
 		if (lData.Length == currentLevel + 1) {
-			Debug.Log ("You Won!");//TODO:Celebrate
+			Debug.Log ("You Won!");
+			// TODO:Celebrate
 		} else {
 			currentLevel++;
-			m_CamAnimator.panToFocii (currentLevel, lData [currentLevel].PanTime);
+			m_CamAnimator.panToFocii(currentLevel, lData[currentLevel].PanTime);
 			callbackFct = SetupResource;
-			StartCoroutine (m_CamAnimator.Pan (callbackFct));
+			StartCoroutine(m_CamAnimator.Pan(callbackFct));
 		}
-
-		// Keep the resource on the right level
-		Resource.level = currentLevel;
 	}
 
 	public void SetupResource(){
-		Resource.host.transform.parent = lData [currentLevel].Fountain.host.transform;
-		Resource.host.transform.localPosition = Vector3.zero;
-		Resource.host.transform.localEulerAngles = Vector3.zero;
-		Resource.host.GetComponent<Resource> ().Respawn ();
+		lData[currentLevel].Fountain.generateResource();
 	}
 
 	public void obstacleCollision(Obstacle obst, GameObject collider) {
-		//Debug.Log(obst.GetType().ToString() + " run into by a " + collider.tag);
-
 		GameObject gamObj = collider.transform.parent.gameObject;
 		Adherent addy = (Adherent)(gamObj.GetComponent<Adherent>());
-
         Remove(addy);
 	}
     
 	public Adherent Add(Vector2 pos){
-		Adherent newAd = ((GameObject)Instantiate (m_AdherentPrefab, new Vector3 (pos.x, pos.y, 0), Quaternion.identity)).GetComponent<Adherent> ();
+		Adherent newAd = ((GameObject)Instantiate(m_AdherentPrefab, new Vector3 (pos.x, pos.y, 0), Quaternion.identity)).GetComponent<Adherent>();
 		newAd.level = currentLevel;
 
 		adherentObjects.Add(newAd);
-		return adherentObjects [adherentObjects.Count - 1];
+		return newAd;
 	}
 
     public void Remove(Adherent adherent) {
-        if (adherentObjects.Contains(adherent)) {
-            adherentObjects.Remove(adherent);
-            Destroy(adherent.gameObject);
+		if (!adherentObjects.Contains(adherent)) {
+			return;
+		}
 
-            FindIntersections();
+		if (adherent.isCarrying) {
+			int adLevel = adherent.level;
+			Resource levelRes = ResourceManager.levelResource(adLevel);
+			levelRes.Respawn(lData[adLevel].Fountain);
+		}
 
-            if (adherent.isCarrying) {
-                lData[currentLevel].Fountain.generateResource();
-            }
-        }
+		adherentObjects.Remove(adherent);
+        Destroy(adherent.gameObject);
+
+        FindIntersections();
     }
 
     public void FindIntersections() {
