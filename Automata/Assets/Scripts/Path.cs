@@ -105,6 +105,30 @@ public class Path
         return Mathf.Atan2(v.y, v.x) * 180.0f / Mathf.PI - 90.0f;
     }
 
+    public float GetPositionAt(Vector2 pt)
+    {
+        int closeIdx = 0;
+        float minDist = 10000f;
+
+        for (int i = 0; i < points.Length; ++i)
+        {
+            float dist = (points[i] - pt).magnitude;
+            if (dist < minDist)
+            {
+                minDist = dist;
+                closeIdx = i;
+            }
+        }
+
+        float pos = 0f;
+        for (int i = 0; i < closeIdx; ++i)
+        {
+            pos += segmentLengths[i];
+        }
+
+        return pos;
+    }
+
     public void ClearIntersections() {
         intersectionPositions = new List<float>();
     }

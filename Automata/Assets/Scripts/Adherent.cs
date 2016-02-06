@@ -17,7 +17,7 @@ public class Adherent : MonoBehaviour {
 	public bool isCarrying = false;
 	public int level;
 	private int type;
-	private float x = 0;
+	private float m_pathTparam = 0;
 
 	// Use this for initialization
 	void Awake () {
@@ -28,12 +28,12 @@ public class Adherent : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		float oldX = x;
-        x += 4f;
-        x %= pathObject.path.Length;
-		Vector2 point = pathObject.path.GetPointAt(x);
-		float angle = pathObject.path.GetAngleAt(x);
-		float inter = pathObject.path.GetIntersectionBetween(oldX, x);
+        float oldX = m_pathTparam;
+        m_pathTparam += 4f;
+        m_pathTparam %= pathObject.path.Length;
+        Vector2 point = pathObject.path.GetPointAt(m_pathTparam);
+        float angle = pathObject.path.GetAngleAt(m_pathTparam);
+        float inter = pathObject.path.GetIntersectionBetween(oldX, m_pathTparam);
 		if (inter != -1) {
 			Resource levelRes = ResourceManager.levelResource(level);
             Vector2 interPoint = point + new Vector2(host.transform.position.x, host.transform.position.y);
@@ -47,9 +47,19 @@ public class Adherent : MonoBehaviour {
 		follower.place(point+new Vector2(host.transform.position.x, host.transform.position.y), angle);
 	}
 
-	public void setpath(Path p){
+    public void setpath(Path p){
 		pathObject.setShape(p);
 	}
+
+    public void setPos(float t) {
+        Vector2 point = pathObject.path.GetPointAt(t);
+        Vector2 position = point + new Vector2(host.transform.position.x, host.transform.position.y);
+        Rigidbody2D body = follower.GetComponent<Rigidbody2D>();
+
+        m_pathTparam = t;
+        body.position = position;
+        follower.transform.position = position;
+    }
 
 	public Adherent attach(Resource res){
 		follower.swapSprite();
