@@ -2,21 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Path
-{
+public class Path {
     private Vector2[] points;
     private float[] segmentLengths;
     private float length;
 
     private List<float> intersectionPositions;
 
-    public Path(Vector2[] points)
-    {
+    public Path(Vector2[] points) {
         this.points = points;
         segmentLengths = new float[points.Length];
         length = 0;
-        for (int i = 0; i < points.Length; i++)
-        {
+        for (int i = 0; i < points.Length; i++) {
             Vector2 p1 = points[i];
             Vector2 p2 = points[(i + 1) % points.Length];
             float segmentLength = Vector2.Distance(p1, p2);
@@ -25,8 +22,7 @@ public class Path
         }
     }
 
-    public static Path createRect(float x1, float y1, float x2, float y2)
-    {
+    public static Path createRect(float x1, float y1, float x2, float y2) {
         Vector2[] points = new Vector2[4];
         points[0] = new Vector2(x1, y1);
         points[1] = new Vector2(x2, y1);
@@ -35,14 +31,12 @@ public class Path
         return new Path(points);
     }
 
-    public static Path createEllipse(float x, float y, float rx, float ry, int segments)
-    {
+    public static Path createEllipse(float x, float y, float rx, float ry, int segments) {
         Vector2[] points = new Vector2[segments];
         float twoPi = Mathf.PI * 2.0f;
         float angleStep = twoPi / (float)segments;
         float angle = 0;
-        for (int i = 0; i < segments; i++)
-        {
+        for (int i = 0; i < segments; i++) {
             points[i] = new Vector2(x + Mathf.Sin(angle) * rx, y + Mathf.Cos(angle) * ry);
             angle += angleStep;
         }
@@ -50,35 +44,27 @@ public class Path
         return new Path(points);
     }
 
-    public Vector2[] Points
-    {
-        get
-        {
+    public Vector2[] Points {
+        get {
             return points;
         }
     }
 
-    public float Length
-    {
-        get
-        {
+    public float Length {
+        get {
             return length;
         }
     }
 
-    private struct SegmentPos
-    {
+    private struct SegmentPos {
         public int index;
         public float ratio;
     }
 
-    private SegmentPos GetSegmentPos(float pos)
-    {
+    private SegmentPos GetSegmentPos(float pos) {
         SegmentPos result = new SegmentPos();
-        for (int i = 0; i < points.Length; i++)
-        {
-            if (pos <= segmentLengths[i])
-            {
+        for (int i = 0; i < points.Length; i++) {
+            if (pos <= segmentLengths[i]) {
                 result.index = i;
                 result.ratio = pos / segmentLengths[i];
                 break;
@@ -88,16 +74,14 @@ public class Path
         return result;
     }
 
-    public Vector2 GetPointAt(float pos)
-    {
+    public Vector2 GetPointAt(float pos) {
         SegmentPos segmentPos = GetSegmentPos(pos);
         Vector2 p1 = points[segmentPos.index];
         Vector2 p2 = points[(segmentPos.index + 1) % points.Length];
         return (p2 - p1) * segmentPos.ratio + p1;
     }
 
-    public float GetAngleAt(float pos)
-    {
+    public float GetAngleAt(float pos) {
         SegmentPos segmentPos = GetSegmentPos(pos);
         Vector2 p1 = points[segmentPos.index];
         Vector2 p2 = points[(segmentPos.index + 1) % points.Length];
@@ -105,24 +89,20 @@ public class Path
         return Mathf.Atan2(v.y, v.x) * 180.0f / Mathf.PI - 90.0f;
     }
 
-    public float GetPositionAt(Vector2 pt)
-    {
+    public float GetPositionAt(Vector2 pt) {
         int closeIdx = 0;
         float minDist = 10000f;
 
-        for (int i = 0; i < points.Length; ++i)
-        {
+        for (int i = 0; i < points.Length; ++i) {
             float dist = (points[i] - pt).magnitude;
-            if (dist < minDist)
-            {
+            if (dist < minDist) {
                 minDist = dist;
                 closeIdx = i;
             }
         }
 
         float pos = 0f;
-        for (int i = 0; i < closeIdx; ++i)
-        {
+        for (int i = 0; i < closeIdx; ++i) {
             pos += segmentLengths[i];
         }
 
@@ -187,15 +167,16 @@ public class Path
         }
         return false;
     }
-	public float GetIntersectionBetween(float pos1, float pos2) {
-		for (int i = 0; i < intersectionPositions.Count; i++) {
-			float ipos = intersectionPositions[i];
-			if (ipos >= pos1 && (ipos < pos2 || pos2 < pos1)) {
-				return ipos;
-			}
-		}
-		return -1;
-	}
+
+    public float GetIntersectionBetween(float pos1, float pos2) {
+        for (int i = 0; i < intersectionPositions.Count; i++) {
+            float ipos = intersectionPositions[i];
+            if (ipos >= pos1 && (ipos < pos2 || pos2 < pos1)) {
+                return ipos;
+            }
+        }
+        return -1;
+    }
 
     public float DistanceToPath(Vector2 point) {
         float closest = float.MaxValue;
@@ -215,7 +196,8 @@ public class Path
         float t = Vector2.Dot(point - p1, p2 - p1) / (p2 - p1).sqrMagnitude;
         if (t < 0) {
             return (point - p1).sqrMagnitude;
-        } else  if (t > 1) {
+        }
+        else  if (t > 1) {
             return (point - p2).sqrMagnitude;
         }
 

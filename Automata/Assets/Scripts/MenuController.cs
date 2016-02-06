@@ -4,15 +4,16 @@ using System.Collections;
 
 public class MenuController : MonoBehaviour {
 
-	float countdownTimer;
+    float countdownTimer;
 
-	void Start () {
-		countdownTimer = 5f;
-	}
+    void Start() {
+        countdownTimer = 5f;
+    }
 
-	void Update () {
-		countdownTimer -= Time.deltaTime;
-		if (countdownTimer <= 0f)
-			SceneManager.LoadScene ("Level1");
-	}
+    void Update() {
+        countdownTimer -= Time.deltaTime;
+        if (countdownTimer <= 0f) {
+            SceneManager.LoadScene("Level1");
+        }
+    }
 }
