@@ -3,53 +3,53 @@ using System.Collections;
 
 public class Adherent : MonoBehaviour {
 
-	public enum adTypes {
-		Rectangle = 0,
-		Circle = 1,
-		Diamond = 2,
-		Triangle = 3
-	}
+    public enum adTypes {
+        Rectangle = 0,
+        Circle = 1,
+        Diamond = 2,
+        Triangle = 3
+    }
 
-	private GameObject host;
-	private Follower follower;
-	public PathObject pathObject;
+    private GameObject host;
+    private Follower follower;
+    public PathObject pathObject;
 
-	public bool isCarrying = false;
-	public int level;
-	private int type;
-	private float m_pathTparam = 0;
+    public bool isCarrying = false;
+    public int level;
+    private int type;
+    private float m_pathTparam = 0;
 
-	// Use this for initialization
-	void Awake () {
-		host = gameObject;
-		follower = transform.GetChild (0).GetComponent<Follower>();
-		pathObject = transform.GetChild (1).GetComponent<PathObject>();
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+    // Use this for initialization
+    void Awake() {
+        host = gameObject;
+        follower = transform.GetChild(0).GetComponent<Follower>();
+        pathObject = transform.GetChild(1).GetComponent<PathObject>();
+    }
+
+    // Update is called once per frame
+    void FixedUpdate() {
         float oldX = m_pathTparam;
         m_pathTparam += 4f;
         m_pathTparam %= pathObject.path.Length;
         Vector2 point = pathObject.path.GetPointAt(m_pathTparam);
         float angle = pathObject.path.GetAngleAt(m_pathTparam);
         float inter = pathObject.path.GetIntersectionBetween(oldX, m_pathTparam);
-		if (inter != -1) {
-			Resource levelRes = ResourceManager.levelResource(level);
+        if (inter != -1) {
+            Resource levelRes = ResourceManager.levelResource(level);
             Vector2 interPoint = point + new Vector2(host.transform.position.x, host.transform.position.y);
-			float dist = (levelRes.Pos - interPoint).magnitude;
+            float dist = (levelRes.Pos - interPoint).magnitude;
 
             if (isCarrying && levelRes.canCollide) {
-				this.detach(levelRes);
-				levelRes.Pos = interPoint;
-			}
-		}
-		follower.place(point+new Vector2(host.transform.position.x, host.transform.position.y), angle);
-	}
+                this.detach(levelRes);
+                levelRes.Pos = interPoint;
+            }
+        }
+        follower.place(point + new Vector2(host.transform.position.x, host.transform.position.y), angle);
+    }
 
-    public void setpath(Path p){
-		pathObject.setShape(p);
-	}
+    public void setpath(Path p) {
+        pathObject.setShape(p);
+    }
 
     public void setPos(float t) {
         Vector2 point = pathObject.path.GetPointAt(t);
@@ -61,36 +61,36 @@ public class Adherent : MonoBehaviour {
         follower.transform.position = position;
     }
 
-	public Adherent attach(Resource res){
-		follower.swapSprite();
-		isCarrying = true;
-		res.Pos = new Vector2(-2f, -2f);
+    public Adherent attach(Resource res) {
+        follower.swapSprite();
+        isCarrying = true;
+        res.Pos = new Vector2(-2f, -2f);
 
-		res.gameObject.transform.SetParent(follower.host.transform);
-		res.gameObject.transform.localPosition = new Vector3(0,0,0);
-		res.gameObject.transform.localEulerAngles = new Vector3(1, 0, 0);
-		res.pauseCollision();
-		return this;
-	}
+        res.gameObject.transform.SetParent(follower.host.transform);
+        res.gameObject.transform.localPosition = new Vector3(0, 0, 0);
+        res.gameObject.transform.localEulerAngles = new Vector3(1, 0, 0);
+        res.pauseCollision();
+        return this;
+    }
 
-	public void detach(Resource res) {
-		follower.swapSprite();
-		isCarrying = false;
+    public void detach(Resource res) {
+        follower.swapSprite();
+        isCarrying = false;
 
-		res.gameObject.transform.SetParent(null);
-		res.gameObject.transform.localPosition = follower.gameObject.transform.position;
-		res.gameObject.transform.localEulerAngles = follower.gameObject.transform.localEulerAngles;
-		res.parent = null;
-		res.pauseCollision();
-	}
+        res.gameObject.transform.SetParent(null);
+        res.gameObject.transform.localPosition = follower.gameObject.transform.position;
+        res.gameObject.transform.localEulerAngles = follower.gameObject.transform.localEulerAngles;
+        res.parent = null;
+        res.pauseCollision();
+    }
 
-	public int getType(){
-		return type;
-	}
+    public int getType() {
+        return type;
+    }
 
-	public void setType(int t){
-		type = t;
-		follower.setSprite (type);
+    public void setType(int t) {
+        type = t;
+        follower.setSprite(type);
 
         Renderer rend = pathObject.GetComponent<Renderer>();
         rend.material.shader = Shader.Find("Unlit/Color");

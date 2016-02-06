@@ -3,19 +3,18 @@ using System.Collections;
 
 public class PathObject : MonoBehaviour {
 
-	private Path m_path;
+    private Path m_path;
 
-	void setLineRender(){
-		setLineRender (m_path.Points);
-	}
+    void setLineRender() {
+        setLineRender(m_path.Points);
+    }
 
-	void setLineRender(Vector2[] points){
+    void setLineRender(Vector2[] points) {
         const float thickness = 4f;
 
         Vector3[] vertices = new Vector3[points.Length * 4];
         int[] triangles = new int[points.Length * 6];
-        for (int i = 0; i < points.Length; i++)
-        {
+        for (int i = 0; i < points.Length; i++) {
             Vector2 p1 = points[i];
             Vector2 p2 = points[(i + 1) % points.Length];
             Vector2 dir = p2 - p1;
@@ -41,16 +40,14 @@ public class PathObject : MonoBehaviour {
         GetComponent<MeshFilter>().mesh = mesh;
     }
 
-    public Path path
-    {
-        get
-        {
-			return m_path;
+    public Path path {
+        get {
+            return m_path;
         }
     }
 
-	public void setShape(Path p){
-		m_path = p;
-		setLineRender ();
-	}
+    public void setShape(Path p) {
+        m_path = p;
+        setLineRender ();
+    }
 }
