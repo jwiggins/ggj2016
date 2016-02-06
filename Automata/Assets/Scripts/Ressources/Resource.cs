@@ -19,7 +19,7 @@ public class Resource : MonoBehaviour{
 		parent = null;
 		transform.SetParent(fount.gameObject.transform);
 		transform.localPosition = new Vector3(1,0,0);
-		transform.localEulerAngles = new Vector3(1,0,0);
+        transform.localEulerAngles = new Vector3(1,0,0);
 
 		StartCoroutine ("Animate");
 	}
@@ -49,7 +49,7 @@ public class Resource : MonoBehaviour{
 	}
 
 	IEnumerator Animate() {
-		for (int i = 25; i > 0; i--) {
+		for (int i = 10; i > 0; i--) {
 			transform.position += transform.up*1.5f;
 			yield return new WaitForSeconds(0.01f);
 		}
