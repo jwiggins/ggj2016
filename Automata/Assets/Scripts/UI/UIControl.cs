@@ -42,33 +42,37 @@ public class UIControl : MonoBehaviour {
         }
     }
 
+    void OnMouseDown(){
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+        mousePos = new Vector2(mouseWorldPos[0], mouseWorldPos[1]);
+        if (uiState != (int)uiStates.None && !editing) {
+            editingPoints[0] = mousePos;
+            editing = true;
+            pathPreviewRenderer.enabled = true;
+        }
+    }
+
 	void OnMouseUp() {
 		Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
 		mousePos = new Vector2(mouseWorldPos[0], mouseWorldPos[1]);
 		if (editing) {
-			editingPoints [1] = mousePos;
-			wipObject.toAdherent(m_World.Add(new Vector3(editingPoints[0].x,editingPoints[0].y,0)),editingPoints);
+            Adherent newAd = m_World.Add(new Vector3(editingPoints[0].x, editingPoints[0].y, 0));
+            editingPoints [1] = mousePos;
+            wipObject.toAdherent(newAd, editingPoints);
+            newAd.setPos(newAd.pathObject.path.GetPositionAt(mousePos - editingPoints[0]));
             m_World.FindIntersections();
             uiState = (int)uiStates.None;
             Cursor.SetCursor(m_World.cursors[0], new Vector2(20, 20), CursorMode.Auto);
             editingPoints = new Vector2[2]{new Vector2(-1,-1),new Vector2(-1,-1)};
 			editing = false;
 			pathPreviewRenderer.enabled = false;
-		} else {
+		}
+        else {
             Adherent adherent = m_World.FindNearestAdherent(mousePos, 20);
             if (adherent != null) {
                 m_World.Remove(adherent);
             }
         }
-	}
-	void OnMouseDown(){
-		Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
-		mousePos = new Vector2(mouseWorldPos[0], mouseWorldPos[1]);
-		if (uiState != (int)uiStates.None && !editing) {
-			editingPoints[0] = mousePos;
-			editing = true;
-			pathPreviewRenderer.enabled = true;
-		}
 	}
 
 	public void rectangleCreator(){
