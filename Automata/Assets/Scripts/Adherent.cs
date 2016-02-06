@@ -40,7 +40,7 @@ public class Adherent : MonoBehaviour {
             float dist = (levelRes.Pos - interPoint).magnitude;
 
             if (isCarrying && levelRes.canCollide) {
-                this.detach(levelRes);
+                this.detach(levelRes, true);
                 levelRes.Pos = interPoint;
             }
         }
@@ -73,7 +73,7 @@ public class Adherent : MonoBehaviour {
         return this;
     }
 
-    public void detach(Resource res) {
+    public void detach(Resource res, bool andPauseCollision) {
         follower.swapSprite();
         isCarrying = false;
 
@@ -81,7 +81,10 @@ public class Adherent : MonoBehaviour {
         res.gameObject.transform.localPosition = follower.gameObject.transform.position;
         res.gameObject.transform.localEulerAngles = follower.gameObject.transform.localEulerAngles;
         res.parent = null;
-        res.pauseCollision();
+
+        if (andPauseCollision) {
+            res.pauseCollision();
+        }
     }
 
     public int getType() {

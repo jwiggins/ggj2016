@@ -71,7 +71,7 @@ public class Resource : MonoBehaviour {
             }
             break;
         case "Sink":
-            parent.detach(this);
+            parent.detach(this, false);
             (other.gameObject.GetComponent<Sink>()).attach(this);
             this.canCollide = false;
             World wrld = World.host.GetComponent<World>();
