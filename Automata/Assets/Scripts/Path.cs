@@ -129,7 +129,6 @@ public class Path {
 
                 float r = lineLineIntersectionRatio(p1p1, p1p2, p2p1, p2p2);
                 if (r >= 0 && r <= 1) {
-                    Vector2 point = (p1p2 - p1p1) * r + p1p1;
                     intersectionPositions.Add(pos + r * segmentLengths[i]);
                 }
             }

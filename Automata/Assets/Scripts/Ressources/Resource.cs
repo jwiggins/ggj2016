@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class Resource : MonoBehaviour {
-    public Vector2 Pos;
     public Adherent parent;
     public int level;
 
