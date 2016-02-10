@@ -44,8 +44,9 @@ public class Adherent : MonoBehaviour {
         follower.place(point + new Vector2(host.transform.position.x, host.transform.position.y), angle);
     }
 
-    public void setpath(Path p) {
+    public void setPath(Path p) {
         pathObject.setShape(p);
+        p.parentAdherent = this;
     }
 
     public void setPos(float t) {

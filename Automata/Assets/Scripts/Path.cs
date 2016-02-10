@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,9 +9,11 @@ public class Path {
     private float length;
 
     private List<float> intersectionPositions;
+    private WeakReference m_Adherent;
 
     public Path(Vector2[] points) {
         this.points = points;
+        m_Adherent = null;
         segmentLengths = new float[points.Length];
         length = 0;
         for (int i = 0; i < points.Length; i++) {
@@ -42,6 +45,16 @@ public class Path {
         }
 
         return new Path(points);
+    }
+
+    public Adherent parentAdherent {
+        get {
+            return (Adherent)m_Adherent.Target;
+        }
+
+        set {
+            m_Adherent = new WeakReference(value);
+        }
     }
 
     public Vector2[] Points {

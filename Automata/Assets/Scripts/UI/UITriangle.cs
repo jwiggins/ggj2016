@@ -3,7 +3,7 @@ using System.Collections;
 
 public class UITriangle : UIObject {
     public override void toAdherent(Adherent target, Vector2[] points) {
-        target.setpath(toPath(points));
+        target.setPath(toPath(points));
         target.setType((int)Adherent.adTypes.Triangle);
     }
 
