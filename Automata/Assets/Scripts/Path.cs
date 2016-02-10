@@ -4,11 +4,22 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Path {
+
+    private struct IntersectionData {
+        public float pos;
+        public List<WeakReference> adherents;
+    }
+
+    private struct SegmentPos {
+        public int index;
+        public float ratio;
+    }
+
     private Vector2[] points;
     private float[] segmentLengths;
     private float length;
 
-    private List<float> intersectionPositions;
+    private List<IntersectionData> intersectionPositions;
     private WeakReference m_Adherent;
 
     public Path(Vector2[] points) {
@@ -69,11 +80,6 @@ public class Path {
         }
     }
 
-    private struct SegmentPos {
-        public int index;
-        public float ratio;
-    }
-
     private SegmentPos GetSegmentPos(float pos) {
         SegmentPos result = new SegmentPos();
         for (int i = 0; i < points.Length; i++) {
@@ -123,11 +129,11 @@ public class Path {
     }
 
     public void ClearIntersections() {
-        intersectionPositions = new List<float>();
+        intersectionPositions = new List<IntersectionData>();
     }
 
     public void SortIntersections() {
-        intersectionPositions.Sort();
+        intersectionPositions.Sort((obj1, obj2) => obj1.pos.CompareTo(obj2.pos));
     }
 
     public void FindIntersections(Path p, Vector2 offset1, Vector2 offset2) {
@@ -142,7 +148,12 @@ public class Path {
 
                 float r = lineLineIntersectionRatio(p1p1, p1p2, p2p1, p2p2);
                 if (r >= 0 && r <= 1) {
-                    intersectionPositions.Add(pos + r * segmentLengths[i]);
+                    IntersectionData data;
+                    data.pos = pos + r * segmentLengths[i];
+                    data.adherents = new List<WeakReference>();
+                    data.adherents.Add(new WeakReference(this.parentAdherent));
+                    data.adherents.Add(new WeakReference(p.parentAdherent));
+                    intersectionPositions.Add(data);
                 }
             }
 
@@ -172,7 +183,7 @@ public class Path {
 
     public bool HasIntersectionBetween(float pos1, float pos2) {
         for (int i = 0; i < intersectionPositions.Count; i++) {
-            float ipos = intersectionPositions[i];
+            float ipos = intersectionPositions[i].pos;
             if (ipos >= pos1 && (ipos < pos2 || pos2 < pos1)) {
                 return true;
             }
@@ -182,7 +193,7 @@ public class Path {
 
     public float GetIntersectionBetween(float pos1, float pos2) {
         for (int i = 0; i < intersectionPositions.Count; i++) {
-            float ipos = intersectionPositions[i];
+            float ipos = intersectionPositions[i].pos;
             if (ipos >= pos1 && (ipos < pos2 || pos2 < pos1)) {
                 return ipos;
             }
