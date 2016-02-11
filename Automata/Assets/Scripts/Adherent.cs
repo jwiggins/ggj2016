@@ -39,6 +39,7 @@ public class Adherent : MonoBehaviour {
 
             if (isCarrying && levelRes.canCollide) {
                 this.detach(levelRes, true);
+                levelRes.addIntersectionAdherents(inter.adherents);
             }
         }
         follower.place(point + new Vector2(host.transform.position.x, host.transform.position.y), angle);
@@ -62,6 +63,7 @@ public class Adherent : MonoBehaviour {
     public Adherent attach(Resource res) {
         follower.swapSprite();
         isCarrying = true;
+        res.clearIntersectionAdherents();
 
         res.gameObject.transform.SetParent(follower.host.transform);
         res.gameObject.transform.localPosition = new Vector3(0, 0, 0);
