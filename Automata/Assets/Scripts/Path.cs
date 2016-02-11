@@ -3,12 +3,33 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Path {
 
-    private struct IntersectionData {
-        public float pos;
-        public List<WeakReference> adherents;
+public class IntersectionData {
+    public float pos;
+    public List<WeakReference> adherents;
+
+    private IntersectionData() {
+        pos = -1f;
+        adherents = new List<WeakReference>();
     }
+
+    public IntersectionData(float position, Adherent ad1, Adherent ad2) {
+        pos = position;
+        adherents = new List<WeakReference>();
+        adherents.Add(new WeakReference(ad1));
+        adherents.Add(new WeakReference(ad2));
+    }
+
+    static public IntersectionData createEmpty() {
+        return new IntersectionData();
+    }
+
+    public bool isEmpty() {
+        return pos == -1 && adherents.Count == 0;
+    }
+}
+
+public class Path {
 
     private struct SegmentPos {
         public int index;
@@ -148,11 +169,7 @@ public class Path {
 
                 float r = lineLineIntersectionRatio(p1p1, p1p2, p2p1, p2p2);
                 if (r >= 0 && r <= 1) {
-                    IntersectionData data;
-                    data.pos = pos + r * segmentLengths[i];
-                    data.adherents = new List<WeakReference>();
-                    data.adherents.Add(new WeakReference(this.parentAdherent));
-                    data.adherents.Add(new WeakReference(p.parentAdherent));
+                    IntersectionData data = new IntersectionData(pos + r * segmentLengths[i], this.parentAdherent, p.parentAdherent);
                     intersectionPositions.Add(data);
                 }
             }
@@ -191,14 +208,14 @@ public class Path {
         return false;
     }
 
-    public float GetIntersectionBetween(float pos1, float pos2) {
+    public IntersectionData GetIntersectionBetween(float pos1, float pos2) {
         for (int i = 0; i < intersectionPositions.Count; i++) {
             float ipos = intersectionPositions[i].pos;
             if (ipos >= pos1 && (ipos < pos2 || pos2 < pos1)) {
-                return ipos;
+                return intersectionPositions[i];
             }
         }
-        return -1;
+        return IntersectionData.createEmpty();
     }
 
     public float DistanceToPath(Vector2 point) {

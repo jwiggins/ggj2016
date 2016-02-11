@@ -33,8 +33,8 @@ public class Adherent : MonoBehaviour {
         m_pathTparam %= pathObject.path.Length;
         Vector2 point = pathObject.path.GetPointAt(m_pathTparam);
         float angle = pathObject.path.GetAngleAt(m_pathTparam);
-        float inter = pathObject.path.GetIntersectionBetween(oldX, m_pathTparam);
-        if (inter != -1) {
+        IntersectionData inter = pathObject.path.GetIntersectionBetween(oldX, m_pathTparam);
+        if (!inter.isEmpty()) {
             Resource levelRes = ResourceManager.levelResource(level);
 
             if (isCarrying && levelRes.canCollide) {
