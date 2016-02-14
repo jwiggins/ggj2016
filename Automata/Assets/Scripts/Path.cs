@@ -24,8 +24,8 @@ public class IntersectionData {
         return new IntersectionData();
     }
 
-    public bool isEmpty() {
-        return pos == -1 && adherents.Count == 0;
+    public bool hasData() {
+        return pos != -1 && adherents.Count > 0;
     }
 }
 
