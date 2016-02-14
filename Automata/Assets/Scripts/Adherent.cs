@@ -33,22 +33,21 @@ public class Adherent : MonoBehaviour {
         m_pathTparam %= pathObject.path.Length;
         Vector2 point = pathObject.path.GetPointAt(m_pathTparam);
         float angle = pathObject.path.GetAngleAt(m_pathTparam);
-        float inter = pathObject.path.GetIntersectionBetween(oldX, m_pathTparam);
-        if (inter != -1) {
+        IntersectionData inter = pathObject.path.GetIntersectionBetween(oldX, m_pathTparam);
+        if (inter.hasData()) {
             Resource levelRes = ResourceManager.levelResource(level);
-            Vector2 interPoint = point + new Vector2(host.transform.position.x, host.transform.position.y);
-            float dist = (levelRes.Pos - interPoint).magnitude;
 
             if (isCarrying && levelRes.canCollide) {
                 this.detach(levelRes, true);
-                levelRes.Pos = interPoint;
+                levelRes.addIntersectionAdherents(inter.adherents);
             }
         }
         follower.place(point + new Vector2(host.transform.position.x, host.transform.position.y), angle);
     }
 
-    public void setpath(Path p) {
+    public void setPath(Path p) {
         pathObject.setShape(p);
+        p.parentAdherent = this;
     }
 
     public void setPos(float t) {
@@ -64,7 +63,7 @@ public class Adherent : MonoBehaviour {
     public Adherent attach(Resource res) {
         follower.swapSprite();
         isCarrying = true;
-        res.Pos = new Vector2(-2f, -2f);
+        res.clearIntersectionAdherents();
 
         res.gameObject.transform.SetParent(follower.host.transform);
         res.gameObject.transform.localPosition = new Vector3(0, 0, 0);
