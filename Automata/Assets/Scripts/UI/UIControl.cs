@@ -64,16 +64,12 @@ public class UIControl : MonoBehaviour {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
         mousePos = new Vector2(mouseWorldPos[0], mouseWorldPos[1]);
         if (editing) {
-            Adherent newAd = m_World.Add(new Vector3(editingPoints[0].x, editingPoints[0].y, 0));
             editingPoints[1] = mousePos;
-            wipObject.toAdherent(newAd, editingPoints);
-            newAd.setPos(newAd.pathObject.path.GetPositionAt(mousePos - editingPoints[0]));
-            m_World.FindIntersections();
-            uiState = (int)uiStates.None;
-            Cursor.SetCursor(m_World.cursors[0], new Vector2(20, 20), CursorMode.Auto);
-            editingPoints = new Vector2[2]{new Vector2(-1, -1), new Vector2(-1, -1)};
-            editing = false;
-            pathPreviewRenderer.enabled = false;
+
+            if ((editingPoints[0] - editingPoints[1]).magnitude > 10) {
+                createAdherent();
+            }
+            resetInteractionState();
         }
         else {
             Adherent adherent = m_World.FindNearestAdherent(mousePos, 20);
@@ -81,6 +77,22 @@ public class UIControl : MonoBehaviour {
                 m_World.Remove(adherent);
             }
         }
+    }
+
+    private void createAdherent() {
+        Adherent newAd = m_World.Add(new Vector3(editingPoints[0].x, editingPoints[0].y, 0));
+
+        wipObject.toAdherent(newAd, editingPoints);
+        newAd.setPos(newAd.pathObject.path.GetPositionAt(editingPoints[1] - editingPoints[0]));
+        m_World.FindIntersections();
+    }
+
+    private void resetInteractionState() {
+        uiState = (int)uiStates.None;
+        Cursor.SetCursor(m_World.cursors[0], new Vector2(20, 20), CursorMode.Auto);
+        editingPoints = new Vector2[2]{new Vector2(-1, -1), new Vector2(-1, -1)};
+        editing = false;
+        pathPreviewRenderer.enabled = false;
     }
 
     public void rectangleCreator() {

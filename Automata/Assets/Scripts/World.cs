@@ -150,10 +150,15 @@ public class World : MonoBehaviour {
             return;
         }
 
+        int adLevel = adherent.level;
+        Resource levelRes = ResourceManager.levelResource(adLevel);
+        Fountain levelFount = lData[adLevel].Fountain;
+
         if (adherent.isCarrying) {
-            int adLevel = adherent.level;
-            Resource levelRes = ResourceManager.levelResource(adLevel);
-            levelRes.Respawn(lData[adLevel].Fountain);
+            levelRes.Respawn(levelFount);
+        }
+        else if (!levelRes.hasParent()) {
+            levelRes.notifyOfAdherentRemove(adherent, levelFount);
         }
 
         adherentObjects.Remove(adherent);

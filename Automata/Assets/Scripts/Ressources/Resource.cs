@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Resource : MonoBehaviour {
-    public Vector2 Pos;
     public Adherent parent;
     public int level;
 
     private bool m_collisionEnabled;
     private Vector3 m_StartPos;
     private Vector3 m_EndPos;
+    List<WeakReference> m_intersectionAdherents;
 
     // Use this for initialization
     void Start() {
         parent = null;
+        m_intersectionAdherents = null;
         this.canCollide = false;
         StartCoroutine ("Animate");
     }
@@ -27,6 +30,32 @@ public class Resource : MonoBehaviour {
         m_EndPos = fount.respawnPointPrefab.transform.position;
 
         StartCoroutine ("Animate");
+    }
+
+    public void addIntersectionAdherents(List<WeakReference> adherents) {
+        m_intersectionAdherents = adherents;
+    }
+
+    public void clearIntersectionAdherents() {
+        m_intersectionAdherents = null;
+    }
+
+    public void notifyOfAdherentRemove(Adherent adherent, Fountain fount) {
+        if (m_intersectionAdherents == null) {
+            return;
+        }
+
+        for (int i=0; i < m_intersectionAdherents.Count; ++i) {
+            WeakReference obj = m_intersectionAdherents[i];
+            if (obj.IsAlive && adherent == (Adherent)obj.Target) {
+                m_intersectionAdherents.Remove(obj);
+                break;
+            }
+        }
+
+        if (m_intersectionAdherents.Count == 0) {
+            Respawn(fount);
+        }
     }
 
     public bool canCollide {

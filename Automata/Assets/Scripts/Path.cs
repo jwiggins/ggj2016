@@ -1,16 +1,51 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
+
+public class IntersectionData {
+    public float pos;
+    public List<WeakReference> adherents;
+
+    private IntersectionData() {
+        pos = -1f;
+        adherents = new List<WeakReference>();
+    }
+
+    public IntersectionData(float position, Adherent ad1, Adherent ad2) {
+        pos = position;
+        adherents = new List<WeakReference>();
+        adherents.Add(new WeakReference(ad1));
+        adherents.Add(new WeakReference(ad2));
+    }
+
+    static public IntersectionData createEmpty() {
+        return new IntersectionData();
+    }
+
+    public bool hasData() {
+        return pos != -1 && adherents.Count > 0;
+    }
+}
+
 public class Path {
+
+    private struct SegmentPos {
+        public int index;
+        public float ratio;
+    }
+
     private Vector2[] points;
     private float[] segmentLengths;
     private float length;
 
-    private List<float> intersectionPositions;
+    private List<IntersectionData> intersectionPositions;
+    private WeakReference m_Adherent;
 
     public Path(Vector2[] points) {
         this.points = points;
+        m_Adherent = null;
         segmentLengths = new float[points.Length];
         length = 0;
         for (int i = 0; i < points.Length; i++) {
@@ -44,6 +79,16 @@ public class Path {
         return new Path(points);
     }
 
+    public Adherent parentAdherent {
+        get {
+            return (Adherent)m_Adherent.Target;
+        }
+
+        set {
+            m_Adherent = new WeakReference(value);
+        }
+    }
+
     public Vector2[] Points {
         get {
             return points;
@@ -54,11 +99,6 @@ public class Path {
         get {
             return length;
         }
-    }
-
-    private struct SegmentPos {
-        public int index;
-        public float ratio;
     }
 
     private SegmentPos GetSegmentPos(float pos) {
@@ -110,11 +150,11 @@ public class Path {
     }
 
     public void ClearIntersections() {
-        intersectionPositions = new List<float>();
+        intersectionPositions = new List<IntersectionData>();
     }
 
     public void SortIntersections() {
-        intersectionPositions.Sort();
+        intersectionPositions.Sort((obj1, obj2) => obj1.pos.CompareTo(obj2.pos));
     }
 
     public void FindIntersections(Path p, Vector2 offset1, Vector2 offset2) {
@@ -129,8 +169,8 @@ public class Path {
 
                 float r = lineLineIntersectionRatio(p1p1, p1p2, p2p1, p2p2);
                 if (r >= 0 && r <= 1) {
-                    Vector2 point = (p1p2 - p1p1) * r + p1p1;
-                    intersectionPositions.Add(pos + r * segmentLengths[i]);
+                    IntersectionData data = new IntersectionData(pos + r * segmentLengths[i], this.parentAdherent, p.parentAdherent);
+                    intersectionPositions.Add(data);
                 }
             }
 
@@ -160,7 +200,7 @@ public class Path {
 
     public bool HasIntersectionBetween(float pos1, float pos2) {
         for (int i = 0; i < intersectionPositions.Count; i++) {
-            float ipos = intersectionPositions[i];
+            float ipos = intersectionPositions[i].pos;
             if (ipos >= pos1 && (ipos < pos2 || pos2 < pos1)) {
                 return true;
             }
@@ -168,14 +208,14 @@ public class Path {
         return false;
     }
 
-    public float GetIntersectionBetween(float pos1, float pos2) {
+    public IntersectionData GetIntersectionBetween(float pos1, float pos2) {
         for (int i = 0; i < intersectionPositions.Count; i++) {
-            float ipos = intersectionPositions[i];
+            float ipos = intersectionPositions[i].pos;
             if (ipos >= pos1 && (ipos < pos2 || pos2 < pos1)) {
-                return ipos;
+                return intersectionPositions[i];
             }
         }
-        return -1;
+        return IntersectionData.createEmpty();
     }
 
     public float DistanceToPath(Vector2 point) {
