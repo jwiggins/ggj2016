@@ -47,6 +47,14 @@ public class UIControl : MonoBehaviour {
             editingPoints[1] = mousePos;
             m_PathPreview.transform.position = new Vector3(editingPoints[0].x, editingPoints[0].y, 0);
             m_PathPreview.setShape(wipObject.toPath(editingPoints));
+
+            float length = (editingPoints[0] - editingPoints[1]).magnitude;
+            if (length < Adherent.MIN_PATH_SIZE) {
+                m_PathPreview.alpha = 0.15f;
+            }
+            else {
+                m_PathPreview.alpha = 1.0f;
+            }
         }
     }
 
@@ -66,7 +74,7 @@ public class UIControl : MonoBehaviour {
         if (editing) {
             editingPoints[1] = mousePos;
 
-            if ((editingPoints[0] - editingPoints[1]).magnitude > 10) {
+            if ((editingPoints[0] - editingPoints[1]).magnitude > Adherent.MIN_PATH_SIZE) {
                 createAdherent();
             }
             resetInteractionState();
