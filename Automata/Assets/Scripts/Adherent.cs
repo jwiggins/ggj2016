@@ -10,6 +10,8 @@ public class Adherent : MonoBehaviour {
         Triangle = 3
     }
 
+    public const int MIN_PATH_SIZE = 75;
+
     private GameObject host;
     private Follower follower;
     public PathObject pathObject;

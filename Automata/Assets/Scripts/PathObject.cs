@@ -4,6 +4,11 @@ using System.Collections;
 public class PathObject : MonoBehaviour {
 
     private Path m_path;
+    private float m_alpha;
+
+    void Start() {
+        m_alpha = 1f;
+    }
 
     void setLineRender() {
         setLineRender(m_path.Points);
@@ -40,6 +45,17 @@ public class PathObject : MonoBehaviour {
         GetComponent<MeshFilter>().mesh = mesh;
     }
 
+    public float alpha {
+        set {
+            if (m_alpha != value) {
+                Renderer rend = GetComponent<Renderer>();
+                Color c = rend.material.GetColor("_Color");
+                rend.material.SetColor("_Color", new Color(c.r, c.g, c.b, value));
+                m_alpha = value;
+            }
+        }
+    }
+
     public Path path {
         get {
             return m_path;
@@ -48,6 +64,6 @@ public class PathObject : MonoBehaviour {
 
     public void setShape(Path p) {
         m_path = p;
-        setLineRender ();
+        setLineRender();
     }
 }
